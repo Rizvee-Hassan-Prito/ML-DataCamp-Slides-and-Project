@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://datascience103579984.wordpress.com/xmlrpc.php">
+
+<title>Preprocessing for Machine Learning in Python from DataCamp &#8211; way to be a data scientist</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//wordpress.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.pubmine.com' />
+<link rel='dns-prefetch' href='//x.bidswitch.net' />
+<link rel='dns-prefetch' href='//static.criteo.net' />
+<link rel='dns-prefetch' href='//ib.adnxs.com' />
+<link rel='dns-prefetch' href='//aax.amazon-adsystem.com' />
+<link rel='dns-prefetch' href='//bidder.criteo.com' />
+<link rel='dns-prefetch' href='//cas.criteo.com' />
+<link rel='dns-prefetch' href='//gum.criteo.com' />
+<link rel='dns-prefetch' href='//ads.pubmatic.com' />
+<link rel='dns-prefetch' href='//gads.pubmatic.com' />
+<link rel='dns-prefetch' href='//tpc.googlesyndication.com' />
+<link rel='dns-prefetch' href='//ad.doubleclick.net' />
+<link rel='dns-prefetch' href='//googleads.g.doubleclick.net' />
+<link rel='dns-prefetch' href='//www.googletagservices.com' />
+<link rel='dns-prefetch' href='//cdn.switchadhub.com' />
+<link rel='dns-prefetch' href='//delivery.g.switchadhub.com' />
+<link rel='dns-prefetch' href='//delivery.swid.switchadhub.com' />
+<link rel='dns-prefetch' href='//a.teads.tv' />
+<link rel='dns-prefetch' href='//prebid.media.net' />
+<link rel='dns-prefetch' href='//adserver-us.adtech.advertising.com' />
+<link rel='dns-prefetch' href='//fastlane.rubiconproject.com' />
+<link rel='dns-prefetch' href='//prebid-server.rubiconproject.com' />
+<link rel='dns-prefetch' href='//hb-api.omnitagjs.com' />
+<link rel='dns-prefetch' href='//mtrx.go.sonobi.com' />
+<link rel='dns-prefetch' href='//apex.go.sonobi.com' />
+<link rel='dns-prefetch' href='//u.openx.net' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="way to be a data scientist &raquo; Feed" href="https://datascience103579984.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="way to be a data scientist &raquo; Comments Feed" href="https://datascience103579984.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="way to be a data scientist &raquo; Preprocessing for Machine Learning in Python from&nbsp;DataCamp Comments Feed" href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/feed/" />
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+	<script type="text/javascript">
+window._wpemojiSettings = {"baseUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/s0.wp.com\/wp-includes\/js\/wp-emoji-release.min.js?m=1652185836h&ver=6.1-alpha-53911"}};
+/*! This file is auto-generated */
+!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode,e=(p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0),i.toDataURL());return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([129777,127995,8205,129778,127999],[129777,127995,8203,129778,127999])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(e=t.source||{}).concatemoji?c(e.concatemoji):e.wpemoji&&e.twemoji&&(c(e.twemoji),c(e.wpemoji)))}(window,document,window._wpemojiSettings);
+</script>
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-1' href='https://s0.wp.com/_static/??-eJyFUttuwyAM/aEZmmXL1odp38LFYm4gIC6N8vcj0Vql6Zq+IB3sYx/7mI8BlB8yDpm7AsEWQ0PiY1DeQXJkcdogplJ64SuatN5ciU7EHjMNBqSIvKbe/tyR1z1JG8yJY6lR3xOCFSPP6IIVGRNPebK43330UQuduLFeCrvXLOJcVEPwKW/QHs1SX5WcMAeheljQXfol15QKJUZTIxH5uXljLTtwWcjqWfZSQEYRp81oNChb9Nynbg81CbToFiErUJcyYQSLRqiJORqe02tsjW9Ij8UvSlczi8mXDCaSfuDI0xJRzOfwyNALXfk/2itrPlkDieohIEQ8s5ZrSvmaAf8XWtk2G1D/XRD3W9i7yOXupQwRU4L6OioO8k8lLrZ/u6+m6967j/Z4OJ5+AWlUPPY=?cssminify=yes' type='text/css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify {
+	text-align:justify;
+}
+.wp-block-cover__image-background.has-parallax {
+	background-size: cover;
+}
+</style>
+<style id='global-styles-inline-css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;}:where(.is-layout-flex){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;}body .is-layout-flow > .alignright{float: right;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;}body .is-layout-constrained > .alignright{float: right;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-2-1' href='https://s0.wp.com/_static/??-eJx9jl0KwjAQhC9kuy3VSh/Eo0iyXWps/sgmSm/vSlFExbeZXeabgVusMPhMPkO0ZTKeYSpiNaVJPong2m7rrm5AF2NH0DbgXFmjk0oLoFXMBmtk3sAbypXqScPgnJwkMpM4/risUQM+ZCNpfokvZj6TE0IsGnxBS0q2cV4s/Wu/UI5KBq8eYgpjwWyCh5PxCBN5SmvvT/lAH92h7ftdv++GZrjcARrKcY8=?cssminify=yes' type='text/css' media='all' />
+<link rel='stylesheet' id='nucleare-fonts-css'  href='https://fonts.googleapis.com/css?family=Roboto%3A400%2C700%2C700italic%2C400italic%7CPlayfair+Display%3A400%2C400italic%2C700italic%2C700&#038;subset=latin%2Clatin-ext' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-4-1' href='https://s0.wp.com/_static/??-eJx9jUEOwjAMBD+EsSoFAQfEW9LITYMcO4oT9ftNuQAXbju7Gi1uBYJKI2nYVspkWPqM0gOTr4TBDJexg9/INNN5FCf8knKHwj0mMYykwBp8Syo/AAv7VP+plWbWOGJ8P37wkJ75MbnL3bnbdXKvHYA1QbA=?cssminify=yes' type='text/css' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='print-css-5-1' href='https://s0.wp.com/wp-content/mu-plugins/global-print/global-print.css?m=1465851035h&cssminify=yes' type='text/css' media='print' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-6-1' href='https://s0.wp.com/wp-content/themes/pub/nucleare/inc/style-wpcom.css?m=1428690127h&cssminify=yes' type='text/css' media='all' />
+<style id='jetpack-global-styles-frontend-style-inline-css'>
+:root { --font-headings: unset; --font-base: unset; --font-headings-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; --font-base-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;}
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-8-1' href='https://s0.wp.com/_static/??-eJxtjEEKAjEMRS9kDerM6EY8itRY24yZpDQpXl8EXYiuHg/e//CoAVU8icPSQ+WeSQyqmocbR2pgJTaS/OEazVbwfzUnrxHvb4fa9NrRSQXOJAimSJEDa1b7kp9PL2lJBmWAzHqJ/ApOy3EzjdNuOOy34/wERyxD4Q==?cssminify=yes' type='text/css' media='all' />
+<script id='jetpack_related-posts-js-extra'>
+var related_posts_js_options = {"post_heading":"h4"};
+</script>
+<script id='wpcom-actionbar-placeholder-js-extra'>
+var actionbardata = {"siteID":"160251772","siteURL":"http:\/\/datascience103579984.wordpress.com","xhrURL":"https:\/\/datascience103579984.wordpress.com\/wp-admin\/admin-ajax.php","nonce":"48c6aae46a","isLoggedIn":"","statusMessage":"","subsEmailDefault":"instantly","proxyScriptUrl":"https:\/\/s0.wp.com\/wp-content\/js\/wpcom-proxy-request.js?ver=20211021","shortlink":"https:\/\/wp.me\/paQoO0-1Bt","i18n":{"followedText":"New posts from this site will now appear in your <a href=\"https:\/\/wordpress.com\/read\">Reader<\/a>","foldBar":"Collapse this bar","unfoldBar":"Expand this bar"}};
+</script>
+<script crossorigin='anonymous' type='text/javascript' src='https://s0.wp.com/_static/??-eJyFjtEOwiAMRX/IDqdR92L8FgZIIFCwhcz9vRidWfbiU9Pec++tmDKohMVgEZ5FTKMLBiobkrbdwOE9dZ53YsXFCjlU65AFmSCL0ZATl822dbV0CgUypee8aA5VqNrwW/SPamj+ji46/AtBdJZa4Rpe2saQ7O/LKZGWmkEFyfwJUjEDJgSrMzXvLV778+m4H4b+cvAvwqxmsQ=='></script>
+<script type='text/javascript'>
+	window.addEventListener( 'DOMContentLoaded', function() {
+		rltInitialize( {"token":null,"iframeOrigins":["https:\/\/widgets.wp.com"]} );
+	} );
+</script>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-2' href='https://s0.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1663315160h&cssminify=yes' type='text/css' media='all' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://datascience103579984.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s0.wp.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress.com" />
+<link rel="canonical" href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/" />
+<link rel='shortlink' href='https://wp.me/paQoO0-1Bt' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fdatascience103579984.wordpress.com%2F2019%2F12%2F23%2Fpreprocessing-for-machine-learning-in-python-from-datacamp%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fdatascience103579984.wordpress.com%2F2019%2F12%2F23%2Fpreprocessing-for-machine-learning-in-python-from-datacamp%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Preprocessing for Machine Learning in Python from DataCamp" />
+<meta property="og:url" content="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/" />
+<meta property="og:description" content="This is the memo of the 8th course (23 courses in all) of ‘Machine Learning Scientist with Python’ skill track.You can find the original course HERE. Course Description This course covers the basic…" />
+<meta property="article:published_time" content="2019-12-23T08:39:55+00:00" />
+<meta property="article:modified_time" content="2019-12-23T08:41:22+00:00" />
+<meta property="og:site_name" content="way to be a data scientist" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/3-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/3-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/4-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/4-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/5-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/5-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/6-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/6-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/7-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/7-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/8-11.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/8-11.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/9-11.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/9-11.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/10-11.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/10-11.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/11-10.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/11-10.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/12-11.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/12-11.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/13-10.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/13-10.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/14-8.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/14-8.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/18-5.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/18-5.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/15-8.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/15-8.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/16-6.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/16-6.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/17-4.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/17-4.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/19-5.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/19-5.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/20-5.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/20-5.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/21-5.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/21-5.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/24-5.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/24-5.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/22-5.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/22-5.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/23-5.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/23-5.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/2-13.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/2-13.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/3-13.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/3-13.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/4-13.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/4-13.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/5-13.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/5-13.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/6-13.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/6-13.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/7-13.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/7-13.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/9-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/9-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/10-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/10-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/1-11.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/1-11.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/2-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/2-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/1-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/1-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/8-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/8-12.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/11-11.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/11-11.png" />
+<meta property="og:image" content="https://datascience103579984.files.wordpress.com/2019/12/12-12.png" />
+<meta property="og:image:secure_url" content="https://datascience103579984.files.wordpress.com/2019/12/12-12.png" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta property="fb:app_id" content="249643311490" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<meta name="twitter:text:title" content="Preprocessing for Machine Learning in Python from&nbsp;DataCamp" />
+<meta name="twitter:image" content="https://datascience103579984.files.wordpress.com/2019/12/3-12.png?w=1400" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="shortcut icon" type="image/x-icon" href="https://s0.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="https://s0.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon" href="https://s0.wp.com/i/webclip.png" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://datascience103579984.wordpress.com/osd.xml" title="way to be a data scientist" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com" />
+<meta name="application-name" content="way to be a data scientist" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="from 0 to 100" /><meta name="msapplication-task" content="name=Subscribe;action-uri=https://datascience103579984.wordpress.com/feed/;icon-uri=https://s0.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s0.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s0.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s0.wp.com/i/favicon.ico" /><meta name="description" content="This is the memo of the 8th course (23 courses in all) of ‘Machine Learning Scientist with Python’ skill track.You can find the original course HERE. Course Description This course covers the basics of how and when to perform data preprocessing. This essential step in any machine learning project is when you get your data ready&hellip;" />
+		<script type='application/javascript' src='https://ced.sascdn.com/tag/3905/smart.js' async></script>
+		<script type='application/javascript'>
+			var sas = sas || {};
+			var sas_fallback = sas_fallback || [];
+			sas.cmd = sas.cmd || [];
+			sas.cmd.push(function() {
+				sas.setup({networkid: 3905, domain: 'https://www15.smartadserver.com', async: true});
+			});
+			sas.cmd.push(function() {
+				sas.call('onecall', {
+					siteId: 474853,
+					pageId: 1572546,
+					formats: [
+						{ id: 110354, tagId: "sas_110354" }
+					],
+					target: 'iab_category=IAB15,iab_category=IAB5,iab_category=IAB19,iab_category=IAB18',
+				});
+			});
+			sas.cmd.push(function() {
+				sas.events.on('noad', function(data) {
+					var el = document.getElementById(data.tagId);
+					var wrapper = el.closest('.wordads-ad-wrapper');
+					
+					if ( sas_fallback.length === 0 ) {
+						wrapper.remove();
+						return;
+					}
+					
+					// Process first tag.
+					var tag = sas_fallback[0].tag;
+					
+					// Unescape the tag markup.
+					var e = document.createElement('div');
+					e.innerHTML = tag;
+					tag = e.childNodes[0].nodeValue;
+					
+					// Insert the tag.
+					wrapper.innerHTML = tag;
+					
+					// Process any scripts in the tag.
+					var scripts = wrapper.querySelectorAll('script');
+					scripts.forEach( function (script) {
+						script.parentNode.removeChild(script);
+						
+						var scriptTag = document.createElement('script');
+						
+						if (script.src) {
+							scriptTag.src = script.src;
+						} else if (script.textContent) {
+							scriptTag.textContent = script.textContent;
+						} else if (script.innerText) {
+							scriptTag.innerText = script.innerText;
+						}
+						
+						document.body.appendChild(scriptTag);
+					});
+				});
+			});
+			sas.cmd.push(function() {
+				sas.events.on('load', function(data) {
+					var el = document.getElementById(data.tagId);
+					el.closest('.wordads-ad-wrapper').style.display = 'inherit';
+				});
+			});
+		</script>		<script>
+			window.sas_fallback = window.sas_fallback || [];
+			window.sas_fallback.push( { tag: "&lt;div class=&quot;OUTBRAIN wa-ob-widget&quot;data-ob-contentUrl=&quot;https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/&quot;data-widget-id=&quot;AR_1&quot;data-ob-installation-key=&quot;WORDP263NC92GIANECJP6HEPM&quot;data-ob-psub=&quot;science&quot;&gt;&lt;/div&gt;&lt;script&gt;window._stq = window._stq || [];window._stq.push( [ \'extra\', { x_wordads_outbrain: \'widget_render_ar_1\', }, ] );&lt;/script&gt;&lt;script src=&quot;https://widgets.outbrain.com/outbrain.js&quot;&gt;&lt;/script&gt;", } );
+		</script>		<script type="text/javascript">
+
+			window.doNotSellCallback = function() {
+
+				var linkElements = [
+					'a[href="https://wordpress.com/?ref=footer_blog"]',
+					'a[href="https://wordpress.com/?ref=footer_website"]',
+					'a[href="https://wordpress.com/?ref=vertical_footer"]',
+					'a[href^="https://wordpress.com/?ref=footer_segment_"]',
+				].join(',');
+
+				var dnsLink = document.createElement( 'a' );
+				dnsLink.href = 'https://wordpress.com/advertising-program-optout/';
+				dnsLink.classList.add( 'do-not-sell-link' );
+				dnsLink.rel = 'nofollow';
+				dnsLink.style.marginLeft = '0.5em';
+				dnsLink.textContent = 'Do Not Sell My Personal Information';
+
+				var creditLinks = document.querySelectorAll( linkElements );
+
+				if ( 0 === creditLinks.length ) {
+					return false;
+				}
+
+				Array.prototype.forEach.call( creditLinks, function( el ) {
+					el.insertAdjacentElement( 'afterend', dnsLink );
+				});
+
+				return true;
+			};
+
+		</script>
+				<script type="text/javascript">
+		function __ATA_CC() {var v = document.cookie.match('(^|;) ?personalized-ads-consent=([^;]*)(;|$)');return v ? 1 : 0;}
+		var __ATA_PP = { 'pt': 1, 'ht': 0, 'tn': 'nucleare', 'uloggedin': 0, 'amp': false, 'consent': __ATA_CC(), 'gdpr_applies': false, 'ad': { 'label': { 'text': 'Advertisements' }, 'reportAd': { 'text': 'Report this ad' } }, 'siteid': 8982, 'blogid': 160251772 };
+		var __ATA = __ATA || {};
+		__ATA.cmd = __ATA.cmd || [];
+		__ATA.criteo = __ATA.criteo || {};
+		__ATA.criteo.cmd = __ATA.criteo.cmd || [];
+		</script>
+		<script type="text/javascript">
+		(function(){var g=Date.now||function(){return+new Date};function h(a,b){a:{for(var c=a.length,d="string"==typeof a?a.split(""):a,e=0;e<c;e++)if(e in d&&b.call(void 0,d[e],e,a)){b=e;break a}b=-1}return 0>b?null:"string"==typeof a?a.charAt(b):a[b]};function k(a,b,c){c=null!=c?"="+encodeURIComponent(String(c)):"";if(b+=c){c=a.indexOf("#");0>c&&(c=a.length);var d=a.indexOf("?");if(0>d||d>c){d=c;var e=""}else e=a.substring(d+1,c);a=[a.substr(0,d),e,a.substr(c)];c=a[1];a[1]=b?c?c+"&"+b:b:c;a=a[0]+(a[1]?"?"+a[1]:"")+a[2]}return a};var l=0;function m(a,b){var c=document.createElement("script");c.src=a;c.onload=function(){b&&b(void 0)};c.onerror=function(){b&&b("error")};a=document.getElementsByTagName("head");var d;a&&0!==a.length?d=a[0]:d=document.documentElement;d.appendChild(c)}function n(a){var b=void 0===b?document.cookie:b;return(b=h(b.split("; "),function(c){return-1!=c.indexOf(a+"=")}))?b.split("=")[1]:""}function p(a){return"string"==typeof a&&0<a.length}
+		function r(a,b,c){b=void 0===b?"":b;c=void 0===c?".":c;var d=[];Object.keys(a).forEach(function(e){var f=a[e],q=typeof f;"object"==q&&null!=f||"function"==q?d.push(r(f,b+e+c)):null!==f&&void 0!==f&&(e=encodeURIComponent(b+e),d.push(e+"="+encodeURIComponent(f)))});return d.filter(p).join("&")}function t(a,b){a||((window.__ATA||{}).config=b.c,m(b.url))}var u=Math.floor(1E13*Math.random()),v=window.__ATA||{};window.__ATA=v;window.__ATA.cmd=v.cmd||[];v.rid=u;v.createdAt=g();var w=window.__ATA||{},x="s.pubmine.com";
+		w&&w.serverDomain&&(x=w.serverDomain);var y="//"+x+"/conf",z=window.top===window,A=window.__ATA_PP&&window.__ATA_PP.gdpr_applies,B="boolean"===typeof A?Number(A):null,C=window.__ATA_PP||null,D=z?document.referrer?document.referrer:null:null,E=z?window.location.href:document.referrer?document.referrer:null,F,G=n("__ATA_tuuid");F=G?G:null;var H=window.innerWidth+"x"+window.innerHeight,I=n("usprivacy"),J=r({gdpr:B,pp:C,rid:u,src:D,ref:E,tuuid:F,vp:H,us_privacy:I?I:null},"",".");
+		(function(a){var b=void 0===b?"cb":b;l++;var c="callback__"+g().toString(36)+"_"+l.toString(36);a=k(a,b,c);window[c]=function(d){t(void 0,d)};m(a,function(d){d&&t(d)})})(y+"?"+J);}).call(this);
+		</script>	<script>
+		var sas_fallback = sas_fallback || [];
+		sas_fallback.push(
+			{ tag: "&lt;div id=&quot;atatags-26942-634ed623df7d8&quot;&gt;&lt;/div&gt;&lt;script&gt;__ATA.cmd.push(function() {__ATA.initDynamicSlot({id: \'atatags-26942-634ed623df7d8\',location: 120,formFactor: \'001\',label: {text: \'Advertisements\',},creative: {reportAd: {text: \'Report this ad\',},privacySettings: {text: \'Privacy\',}}});});&lt;/script&gt;", }
+		);
+	</script><script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_gat._anonymizeIp']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+
+<body class="post-template-default single single-post postid-6167 single-format-standard customizer-styles-applied has-marketing-bar has-marketing-bar-theme-nucleare highlander-enabled highlander-light">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<div class="navigation-bar clear">
+		<div class="navigation-block">
+			<nav id="site-navigation" class="main-navigation" role="navigation">
+				<button class="menu-toggle" aria-controls="menu" aria-expanded="false"><i class="fa fa-bars"></i><span class="screen-reader-text">Open Menu</span></button>
+				<div class="menu"><ul>
+<li ><a href="https://datascience103579984.wordpress.com/">Home</a></li><li class="page_item page-item-2643"><a href="https://datascience103579984.wordpress.com/case-study/">CASE STUDY</a></li>
+<li class="page_item page-item-2"><a href="https://datascience103579984.wordpress.com/%e3%81%93%e3%81%ae%e3%82%b5%e3%82%a4%e3%83%88%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6/">このサイトについて</a></li>
+<li class="page_item page-item-3"><a href="https://datascience103579984.wordpress.com/%e3%81%8a%e5%95%8f%e3%81%84%e5%90%88%e3%82%8f%e3%81%9b/">お問い合わせ</a></li>
+</ul></div>
+			</nav><!-- #site-navigation -->
+
+							<div class="social-links">
+					<div class="menu-%e3%82%bd%e3%83%bc%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%aa%e3%83%b3%e3%82%af-container"><ul id="menu-%e3%82%bd%e3%83%bc%e3%82%b7%e3%83%a3%e3%83%ab%e3%83%aa%e3%83%b3%e3%82%af" class="menu"><li id="menu-item-11" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11"><a href="http://facebook.com/"><span class="screen-reader-text">Facebook</span></a></li>
+<li id="menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a href="http://twitter.com/wordpressdotcom"><span class="screen-reader-text">Twitter</span></a></li>
+<li id="menu-item-13" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13"><a href="http://dribbble.com/automattic"><span class="screen-reader-text">Dribbble</span></a></li>
+</ul></div>
+											<div class="open-search top-search"><i class="fa fa-search"><span class="screen-reader-text">Search</span></i></div>
+									</div>
+					</div>
+	</div>
+
+			<div class="search-full">
+			<div class="search-container">
+				<form role="search" method="get" class="search-form" action="https://datascience103579984.wordpress.com/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form>				<span><a class="close-search"><i class="fa fa-close space-right"></i>Close</a></span>
+			</div>
+		</div>
+	
+	<header id="masthead" class="site-header" role="banner">
+		<div class="site-branding">
+									<h1 class="site-title"><a href="https://datascience103579984.wordpress.com/" rel="home">way to be a data scientist</a></h1>
+			<h2 class="site-description">from 0 to 100</h2>
+		</div><!-- .site-branding -->
+	</header><!-- #masthead -->
+
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			<article id="post-6167" class="post-6167 post type-post status-publish format-standard hentry category-machine-learning-scientist-with-python tag-datacamp tag-nlp tag-preprocessing tag-python tag-regular-expression">
+		<header class="entry-header">
+		<div class="entry-category">
+			<span class="cat-links"><a href="https://datascience103579984.wordpress.com/category/datacamp/machine-learning-scientist-with-python/" rel="category tag">Machine Learning Scientist with Python</a></span>		</div><!-- .entry-meta -->
+		<h1 class="entry-title">Preprocessing for Machine Learning in Python from&nbsp;DataCamp</h1>		<div class="entry-meta small-part">
+			<span class="posted-on"><i class="fa fa-clock-o space-left-right"></i><a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/" rel="bookmark"><time class="entry-date published" datetime="2019-12-23T17:39:55+09:00">2019年12月23日</time><time class="updated" datetime="2019-12-23T17:41:22+09:00">2019年12月23日</time></a></span><span class="byline"> <i class="fa fa-user space-left-right"></i><span class="author vcard"><a class="url fn n" href="https://datascience103579984.wordpress.com/author/wenyanfelixgmailcom/">felix</a></span></span><span class="comments-link"><i class="fa fa-comments-o space-left-right"></i><a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/#respond">Leave a comment</a></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+					
+<p>This is the memo of the 8th course (23 courses in all) of ‘Machine Learning Scientist with Python’ skill track.<br><strong>You can find the original course <a href="https://www.datacamp.com/courses/preprocessing-for-machine-learning-in-python">HERE</a></strong>.</p>
+
+
+
+<h3><strong>Course Description</strong></h3>
+
+
+
+<p> This course covers the basics of how and when to perform data preprocessing. This essential step in any machine learning project is when you get your data ready for modeling. Between importing and cleaning your data and fitting your machine learning model is when preprocessing comes into play. You&#8217;ll learn how to standardize your data so that it&#8217;s in the right form for your model, create new features to best leverage the information in your dataset, and select the best features to improve your model fit. Finally, you&#8217;ll have some practice preprocessing by getting a dataset on UFO sightings ready for modeling. </p>
+
+
+
+<h3><strong>Table of contents</strong></h3>
+
+
+
+<ol><li>Introduction to Data Preprocessing</li><li><a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/2/">Standardizing Data</a></li><li><a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/3/">Feature Engineering</a></li><li><a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/4/">Selecting features for modeling</a></li><li><a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/5/">Putting it all together</a></li></ol>
+
+
+
+<span id="more-6167"></span>
+
+
+
+<h2 class="has-text-align-center"><strong>1.  Introduction to Data Preprocessing</strong></h2>
+
+
+
+<h3><strong>1.1 What is data preprocessing?</strong></h3>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="6170" data-permalink="https://datascience103579984.wordpress.com/1-11-2/" data-orig-file="https://datascience103579984.files.wordpress.com/2019/12/1-11.png" data-orig-size="835,301" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="1-11" data-image-description="" data-image-caption="" data-medium-file="https://datascience103579984.files.wordpress.com/2019/12/1-11.png?w=300" data-large-file="https://datascience103579984.files.wordpress.com/2019/12/1-11.png?w=809" src="https://datascience103579984.files.wordpress.com/2019/12/1-11.png?w=835" alt="" class="wp-image-6170" srcset="https://datascience103579984.files.wordpress.com/2019/12/1-11.png 835w, https://datascience103579984.files.wordpress.com/2019/12/1-11.png?w=150 150w, https://datascience103579984.files.wordpress.com/2019/12/1-11.png?w=300 300w, https://datascience103579984.files.wordpress.com/2019/12/1-11.png?w=768 768w" sizes="(max-width: 835px) 100vw, 835px" /></figure>
+
+
+
+<h4><strong>1.1.1 Missing data &#8211; columns</strong></h4>
+
+
+
+<p>We have a dataset comprised of volunteer information from New York City. The dataset has a number of features, but we want to get rid of features that have at least 3 missing values.</p>
+
+
+
+<p>How many features are in the original dataset, and how many features are in the set after columns with at least 3 missing values are removed?</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: python; title: ; notranslate" title="">
+volunteer.shape
+# (665, 35)
+
+volunteer.dropna(axis=1,thresh=3).shape
+# (665, 24)
+</pre></div>
+
+
+<h4><strong>1.1.2 Missing data &#8211; rows</strong></h4>
+
+
+
+<p>Taking a look at the&nbsp;<code>volunteer</code>&nbsp;dataset again, we want to drop rows where the&nbsp;<code>category_desc</code>&nbsp;column values are missing. We&#8217;re going to do this using boolean indexing, by checking to see if we have any null values, and then filtering the dataset so that we only have rows with those values.</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: python; title: ; notranslate" title="">
+# Check how many values are missing in the category_desc column
+print(volunteer&#91;'category_desc'].isnull().sum())
+# 48
+
+# Subset the volunteer dataset
+volunteer_subset = volunteer&#91;volunteer&#91;'category_desc'].notnull()]
+
+# Print out the shape of the subset
+print(volunteer_subset.shape)
+# (617, 35)
+</pre></div>
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h3><strong>1.2 Working with data types</strong></h3>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="6176" data-permalink="https://datascience103579984.wordpress.com/2-12-2/" data-orig-file="https://datascience103579984.files.wordpress.com/2019/12/2-12.png" data-orig-size="975,601" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="2-12" data-image-description="" data-image-caption="" data-medium-file="https://datascience103579984.files.wordpress.com/2019/12/2-12.png?w=300" data-large-file="https://datascience103579984.files.wordpress.com/2019/12/2-12.png?w=809" src="https://datascience103579984.files.wordpress.com/2019/12/2-12.png?w=975" alt="" class="wp-image-6176" srcset="https://datascience103579984.files.wordpress.com/2019/12/2-12.png 975w, https://datascience103579984.files.wordpress.com/2019/12/2-12.png?w=150 150w, https://datascience103579984.files.wordpress.com/2019/12/2-12.png?w=300 300w, https://datascience103579984.files.wordpress.com/2019/12/2-12.png?w=768 768w" sizes="(max-width: 975px) 100vw, 975px" /></figure>
+
+
+
+<h4><strong>1.2.1 Exploring data types</strong></h4>
+
+
+
+<p>Taking another look at the dataset comprised of volunteer information from New York City, we want to know what types we&#8217;ll be working with as we start to do more preprocessing.</p>
+
+
+
+<p>Which data types are present in the&nbsp;<code>volunteer</code>&nbsp;dataset?</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: python; title: ; notranslate" title="">
+set(volunteer.dtypes.values)
+{dtype('int64'), dtype('float64'), dtype('O')}
+</pre></div>
+
+
+<h4><strong>1.2.2 Converting a column type</strong></h4>
+
+
+
+<p>If you take a look at the&nbsp;<code>volunteer</code>&nbsp;dataset types, you&#8217;ll see that the column&nbsp;<code>hits</code>&nbsp;is type&nbsp;<code>object</code>. But, if you actually look at the column, you&#8217;ll see that it consists of integers. Let&#8217;s convert that column to type&nbsp;<code>int</code>.</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: python; title: ; notranslate" title="">
+volunteer&#91;"hits"].dtype
+# dtype('O')
+
+# Convert the hits column to type int
+volunteer&#91;"hits"] = volunteer&#91;"hits"].astype('int')
+
+volunteer&#91;"hits"].dtype
+# dtype('int64')
+</pre></div>
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h3><strong>1.3 Class distribution</strong></h3>
+
+
+
+<figure data-carousel-extra='{"blog_id":160251772,"permalink":"https:\/\/datascience103579984.wordpress.com\/2019\/12\/23\/preprocessing-for-machine-learning-in-python-from-datacamp\/"}'  class="is-layout-flex wp-block-gallery-1 wp-block-gallery columns-1 is-cropped"><ul class="blocks-gallery-grid"><li class="blocks-gallery-item"><figure><img data-attachment-id="6183" data-permalink="https://datascience103579984.wordpress.com/3-12/" data-orig-file="https://datascience103579984.files.wordpress.com/2019/12/3-12.png" data-orig-size="996,508" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="3-12" data-image-description="" data-image-caption="" data-medium-file="https://datascience103579984.files.wordpress.com/2019/12/3-12.png?w=300" data-large-file="https://datascience103579984.files.wordpress.com/2019/12/3-12.png?w=809" src="https://datascience103579984.files.wordpress.com/2019/12/3-12.png?w=996" alt="" data-id="6183" data-link="https://datascience103579984.wordpress.com/3-12/" class="wp-image-6183" srcset="https://datascience103579984.files.wordpress.com/2019/12/3-12.png 996w, https://datascience103579984.files.wordpress.com/2019/12/3-12.png?w=150 150w, https://datascience103579984.files.wordpress.com/2019/12/3-12.png?w=300 300w, https://datascience103579984.files.wordpress.com/2019/12/3-12.png?w=768 768w" sizes="(max-width: 996px) 100vw, 996px" /></figure></li><li class="blocks-gallery-item"><figure><img data-attachment-id="6184" data-permalink="https://datascience103579984.wordpress.com/4-12/" data-orig-file="https://datascience103579984.files.wordpress.com/2019/12/4-12.png" data-orig-size="980,388" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="4-12" data-image-description="" data-image-caption="" data-medium-file="https://datascience103579984.files.wordpress.com/2019/12/4-12.png?w=300" data-large-file="https://datascience103579984.files.wordpress.com/2019/12/4-12.png?w=809" src="https://datascience103579984.files.wordpress.com/2019/12/4-12.png?w=980" alt="" data-id="6184" data-link="https://datascience103579984.wordpress.com/4-12/" class="wp-image-6184" srcset="https://datascience103579984.files.wordpress.com/2019/12/4-12.png 980w, https://datascience103579984.files.wordpress.com/2019/12/4-12.png?w=150 150w, https://datascience103579984.files.wordpress.com/2019/12/4-12.png?w=300 300w, https://datascience103579984.files.wordpress.com/2019/12/4-12.png?w=768 768w" sizes="(max-width: 980px) 100vw, 980px" /></figure></li></ul></figure>
+
+
+
+<h4><strong>1.3.1 Class imbalance</strong></h4>
+
+
+
+<p>In the&nbsp;<code>volunteer</code>&nbsp;dataset, we&#8217;re thinking about trying to predict the&nbsp;<code>category_desc</code>&nbsp;variable using the other features in the dataset. First, though, we need to know what the class distribution (and imbalance) is for that label.</p>
+
+
+
+<p>Which descriptions occur less than 50 times in the&nbsp;<code>volunteer</code>&nbsp;dataset?</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: python; title: ; notranslate" title="">
+volunteer.category_desc.value_counts()
+Strengthening Communities    307
+Helping Neighbors in Need    119
+Education                     92
+Health                        52
+Environment                   32
+Emergency Preparedness        15
+Name: category_desc, dtype: int64
+</pre></div>
+
+
+<h4><strong>1.3.2 Stratified sampling</strong></h4>
+
+
+
+<p>We know that the distribution of variables in the&nbsp;<code>category_desc</code>&nbsp;column in the&nbsp;<code>volunteer</code>&nbsp;dataset is uneven. If we wanted to train a model to try to predict&nbsp;<code>category_desc</code>, we would want to train the model on a sample of data that is representative of the entire dataset. Stratified sampling is a way to achieve this.</p>
+
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: python; title: ; notranslate" title="">
+# Create a data with all columns except category_desc
+volunteer_X = volunteer.drop('category_desc', axis=1)
+
+# Create a category_desc labels dataset
+volunteer_y = volunteer&#91;&#91;'category_desc']]
+
+# Use stratified sampling to split up the dataset according to the volunteer_y dataset
+X_train, X_test, y_train, y_test = train_test_split(volunteer_X, volunteer_y, stratify=volunteer_y)
+
+# Print out the category_desc counts on the training y labels
+print(y_train&#91;'category_desc'].value_counts())
+</pre></div>
+
+<div class="wp-block-syntaxhighlighter-code "><pre class="brush: python; title: ; notranslate" title="">
+Strengthening Communities    230
+Helping Neighbors in Need     89
+Education                     69
+Health                        39
+Environment                   24
+Emergency Preparedness        11
+Name: category_desc, dtype: int64
+</pre></div>
+
+			<style>
+			.wordads-ad-wrapper {
+				display:none;
+				font: normal 11px Arial, sans-serif;
+				letter-spacing: 1px;
+				text-decoration: none;
+				width: 100%;
+				margin: 25px auto;
+				padding: 0;
+			}
+			.wordads-ad-title {
+				margin-bottom: 5px;
+			}
+			.wordads-ad-controls {
+				margin-top: 5px;
+				text-align: right;
+			}
+			.wordads-ad-controls span {
+				cursor: pointer;
+			}
+			.wordads-ad {
+				width: fit-content;
+				margin: 0 auto;
+			}
+			</style>
+			<div class="wordads-ad-wrapper">
+				<div class="wordads-ad">
+					<div class="wordads-ad-title">Advertisement</div>
+					<div class="wordads-ad-content" id="sas_110354"></div>
+					<div class="wordads-ad-controls"></div>
+				</div>
+			</div>
+			<script>
+				sas.cmd.push(function() {
+					sas.render("sas_110354");
+				});
+				
+				window._stq = window._stq || [];
+				window._stq.push( [
+					'extra',
+					{
+						x_wordads_smart: 'render_sas_110354',
+					},
+				] );
+			</script><div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">共有:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-6167" class="share-twitter sd-button share-icon" href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/?share=twitter" target="_blank" title="Click to share on Twitter" ><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer" data-shared="sharing-facebook-6167" class="share-facebook sd-button share-icon" href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/?share=facebook" target="_blank" title="Click to share on Facebook" ><span>Facebook</span></a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-160251772-6167-634ed623e5517' data-src='//widgets.wp.com/likes/index.html?ver=20220105#blog_id=160251772&amp;post_id=6167&amp;origin=datascience103579984.wordpress.com&amp;obj_id=160251772-6167-634ed623e5517' data-name='like-post-frame-160251772-6167-634ed623e5517' data-title='Like or Reblog'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height: 55px;'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>				<div class="page-links small-part">Pages:<span> <span class="post-page-numbers current" aria-current="page">1</span> <a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/2/" class="post-page-numbers">2</a> <a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/3/" class="post-page-numbers">3</a> <a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/4/" class="post-page-numbers">4</a> <a href="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/5/" class="post-page-numbers">5</a></span></div>	</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<div class="entry-bottom small-part">
+			<span class="tags-links"><i class="fa fa-tags space-right"></i><a href="https://datascience103579984.wordpress.com/tag/datacamp/" rel="tag">DataCamp</a>, <a href="https://datascience103579984.wordpress.com/tag/nlp/" rel="tag">NLP</a>, <a href="https://datascience103579984.wordpress.com/tag/preprocessing/" rel="tag">preprocessing</a>, <a href="https://datascience103579984.wordpress.com/tag/python/" rel="tag">Python</a>, <a href="https://datascience103579984.wordpress.com/tag/regular-expression/" rel="tag">regular expression</a></span>		</div>
+	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+				<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="https://datascience103579984.wordpress.com/2019/12/16/dimensionality-reduction-in-python-from-datacamp/" rel="prev"><div class="the-navigation-arrow"><i class="fa prev-next fa-2x fa-angle-left"></i></div> <div class="meta-nav"><span class="small-part">Previous Post</span><div class="next-prev-name">Dimensionality Reduction in Python from&nbsp;DataCamp</div></div></a></div><div class="nav-next"><a href="https://datascience103579984.wordpress.com/2019/12/29/machine-learning-for-time-series-data-in-python-from-datacamp/" rel="next"><div class="meta-nav"><span class="small-part">Next Post</span><div class="next-prev-name">Machine Learning for Time Series Data in Python from&nbsp;DataCamp</div></div> <div class="the-navigation-arrow"><i class="fa prev-next fa-2x fa-angle-right"></i></div></a></div>		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+	
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://datascience103579984.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="34c66c5961" /><input type="hidden" name="_wp_http_referer" value="/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/" />
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" class="nascar-signin-link"
+				 title="Login via Guest" 				>
+									</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" class="nascar-signin-link"
+				 title="Login via WordPress.com" 				>
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#0087be" d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.18 2.986-.51-.024-.037-.046-.078-.065-.123l-2.762-7.57zM3.008 12c0 3.56 2.07 6.634 5.068 8.092L3.788 8.342c-.5 1.117-.78 2.354-.78 3.658zm15.06-.454c0-1.112-.398-1.88-.74-2.48-.456-.74-.883-1.368-.883-2.11 0-.825.627-1.595 1.51-1.595.04 0 .078.006.116.008-1.598-1.464-3.73-2.36-6.07-2.36-3.14 0-5.904 1.613-7.512 4.053.21.008.41.012.58.012.94 0 2.395-.114 2.395-.114.484-.028.54.684.057.74 0 0-.487.058-1.03.086l3.275 9.74 1.968-5.902-1.4-3.838c-.485-.028-.944-.085-.944-.085-.486-.03-.43-.77.056-.742 0 0 1.484.114 2.368.114.94 0 2.397-.114 2.397-.114.486-.028.543.684.058.74 0 0-.488.058-1.03.086l3.25 9.665.897-2.997c.456-1.17.684-2.137.684-2.907zm1.82-3.86c.04.286.06.593.06.924 0 .912-.17 1.938-.683 3.22l-2.746 7.94c2.672-1.558 4.47-4.454 4.47-7.77 0-1.564-.4-3.033-1.1-4.314zM12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></g></svg>				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" class="nascar-signin-link"
+				 title="Login via Twitter" 				>
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#1DA1F2" d="M22.23 5.924c-.736.326-1.527.547-2.357.646.847-.508 1.498-1.312 1.804-2.27-.793.47-1.67.812-2.606.996C18.325 4.498 17.258 4 16.078 4c-2.266 0-4.103 1.837-4.103 4.103 0 .322.036.635.106.935-3.41-.17-6.433-1.804-8.457-4.287-.353.607-.556 1.312-.556 2.064 0 1.424.724 2.68 1.825 3.415-.673-.022-1.305-.207-1.86-.514v.052c0 1.988 1.415 3.647 3.293 4.023-.344.095-.707.145-1.08.145-.265 0-.522-.026-.773-.074.522 1.63 2.038 2.817 3.833 2.85-1.404 1.1-3.174 1.757-5.096 1.757-.332 0-.66-.02-.98-.057 1.816 1.164 3.973 1.843 6.29 1.843 7.547 0 11.675-6.252 11.675-11.675 0-.178-.004-.355-.012-.53.802-.578 1.497-1.3 2.047-2.124z"/></g></svg>				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" class="nascar-signin-link"
+				 title="Login via Facebook" 				>
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#3B5998" d="M20.007 3H3.993C3.445 3 3 3.445 3 3.993v16.013c0 .55.445.994.993.994h8.62v-6.97H10.27V11.31h2.346V9.31c0-2.325 1.42-3.59 3.494-3.59.993 0 1.847.073 2.096.106v2.43h-1.438c-1.128 0-1.346.537-1.346 1.324v1.734h2.69l-.35 2.717h-2.34V21h4.587c.548 0 .993-.445.993-.993V3.993c0-.548-.445-.993-.993-.993z"/></g></svg>				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="url" value="" /></div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+						<p class="comment-form-posting-as pa-wordpress">
+			<strong></strong>
+			You are commenting using your WordPress.com account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#0087be" d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.18 2.986-.51-.024-.037-.046-.078-.065-.123l-2.762-7.57zM3.008 12c0 3.56 2.07 6.634 5.068 8.092L3.788 8.342c-.5 1.117-.78 2.354-.78 3.658zm15.06-.454c0-1.112-.398-1.88-.74-2.48-.456-.74-.883-1.368-.883-2.11 0-.825.627-1.595 1.51-1.595.04 0 .078.006.116.008-1.598-1.464-3.73-2.36-6.07-2.36-3.14 0-5.904 1.613-7.512 4.053.21.008.41.012.58.012.94 0 2.395-.114 2.395-.114.484-.028.54.684.057.74 0 0-.487.058-1.03.086l3.275 9.74 1.968-5.902-1.4-3.838c-.485-.028-.944-.085-.944-.085-.486-.03-.43-.77.056-.742 0 0 1.484.114 2.368.114.94 0 2.397-.114 2.397-.114.486-.028.543.684.058.74 0 0-.488.058-1.03.086l3.25 9.665.897-2.997c.456-1.17.684-2.137.684-2.907zm1.82-3.86c.04.286.06.593.06.924 0 .912-.17 1.938-.683 3.22l-2.746 7.94c2.672-1.558 4.47-4.454 4.47-7.77 0-1.564-.4-3.033-1.1-4.314zM12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+						<p class="comment-form-posting-as pa-twitter">
+			<strong></strong>
+			You are commenting using your Twitter account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#1DA1F2" d="M22.23 5.924c-.736.326-1.527.547-2.357.646.847-.508 1.498-1.312 1.804-2.27-.793.47-1.67.812-2.606.996C18.325 4.498 17.258 4 16.078 4c-2.266 0-4.103 1.837-4.103 4.103 0 .322.036.635.106.935-3.41-.17-6.433-1.804-8.457-4.287-.353.607-.556 1.312-.556 2.064 0 1.424.724 2.68 1.825 3.415-.673-.022-1.305-.207-1.86-.514v.052c0 1.988 1.415 3.647 3.293 4.023-.344.095-.707.145-1.08.145-.265 0-.522-.026-.773-.074.522 1.63 2.038 2.817 3.833 2.85-1.404 1.1-3.174 1.757-5.096 1.757-.332 0-.66-.02-.98-.057 1.816 1.164 3.973 1.843 6.29 1.843 7.547 0 11.675-6.252 11.675-11.675 0-.178-.004-.355-.012-.53.802-.578 1.497-1.3 2.047-2.124z"/></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+						<p class="comment-form-posting-as pa-facebook">
+			<strong></strong>
+			You are commenting using your Facebook account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#3B5998" d="M20.007 3H3.993C3.445 3 3 3.445 3 3.993v16.013c0 .55.445.994.993.994h8.62v-6.97H10.27V11.31h2.346V9.31c0-2.325 1.42-3.59 3.494-3.59.993 0 1.847.073 2.096.106v2.43h-1.438c-1.128 0-1.346.537-1.346 1.324v1.734h2.69l-.35 2.717h-2.34V21h4.587c.548 0 .993-.445.993-.993V3.993c0-.548-.445-.993-.993-.993z"/></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function () {
+
+	function hide( sel ) {
+		var el = document.querySelector( sel );
+		if ( el ) {
+			el.style.setProperty( 'display', 'none' );
+		}
+	}
+
+	function show( sel ) {
+		var el = document.querySelector( sel );
+		if ( el ) {
+			el.style.removeProperty( 'display' );
+		}
+	}
+
+	var input = document.createElement( 'input' );
+	var comment = document.querySelector( '#comment' );
+
+	if ( input && comment && 'placeholder' in input ) {
+		var label = document.querySelector( '.comment-textarea label' );
+		if ( label ) {
+			var text = label.textContent;
+			label.parentNode.removeChild( label );
+			comment.setAttribute( 'placeholder', text );
+		}
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	hide( '#comment-form-identity' );
+	hide( '#comment-form-subscribe' );
+	hide( '#commentform .form-submit' );
+
+	if ( comment ) {
+		comment.style.height = '10px';
+
+		var handler = function () {
+			comment.style.height = HighlanderComments.initialHeight + 'px';
+			show( '#comment-form-identity' );
+			show( '#comment-form-subscribe' );
+			show( '#commentform .form-submit' );
+			HighlanderComments.resizeCallback();
+
+			comment.removeEventListener( 'focus', handler );
+		};
+
+		comment.addEventListener( 'focus', handler );
+	}
+}
+
+if ( document.readyState !== 'loading' ) {
+	highlander_expando_javascript();
+} else {
+	document.addEventListener( 'DOMContentLoaded', highlander_expando_javascript );
+}
+
+</script>
+
+<div id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;"/> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p><p class="post-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;"/> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog"  style="display: inline;">Notify me of new posts via email.</label></p></div>
+
+
+
+
+<p class="form-submit"><input name="submit" type="submit" id="comment-submit" class="submit button" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='6167' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="99f5b85a83" /></p>
+<input type="hidden" name="genseq" value="1666111011" />
+<p style="display: none !important;"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="19"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<div style="clear: both"></div>
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area" role="complementary">
+	<aside id="follow_button_widget-3" class="widget widget_follow_button_widget">
+		<a class="wordpress-follow-button" href="https://datascience103579984.wordpress.com" data-blog="160251772" data-lang="en" >Follow way to be a data scientist on WordPress.com</a>
+		<script type="text/javascript">(function(d){var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');p.type = 'text/javascript';p.async = true;p.src = '//widgets.wp.com/platform.js';f.parentNode.insertBefore(p,f);}(document));</script>
+
+		</aside>
+		<aside id="recent-posts-3" class="widget widget_recent_entries">
+		<h2 class="widget-title">Recent Posts</h2>
+		<ul>
+											<li>
+					<a href="https://datascience103579984.wordpress.com/2020/01/31/introduction-to-deep-learning-with-keras-from-datacamp/">Introduction to Deep Learning with Keras from&nbsp;DataCamp</a>
+									</li>
+											<li>
+					<a href="https://datascience103579984.wordpress.com/2020/01/26/introduction-to-tensorflow-in-python-from-datacamp/">Introduction to TensorFlow in Python from&nbsp;DataCamp</a>
+									</li>
+											<li>
+					<a href="https://datascience103579984.wordpress.com/2020/01/19/feature-engineering-for-nlp-in-python-from-datacamp/">Feature Engineering for NLP in Python from&nbsp;DataCamp</a>
+									</li>
+											<li>
+					<a href="https://datascience103579984.wordpress.com/2020/01/14/introduction-to-natural-language-processing-in-python-from-datacamp/">Introduction to Natural Language Processing in Python from&nbsp;DataCamp</a>
+									</li>
+											<li>
+					<a href="https://datascience103579984.wordpress.com/2020/01/06/model-validation-in-python-from-datacamp/">Model Validation in Python from&nbsp;DataCamp</a>
+									</li>
+					</ul>
+
+		</aside><aside id="wp_tag_cloud-3" class="widget wp_widget_tag_cloud"><h2 class="widget-title">Tags</h2><a href="https://datascience103579984.wordpress.com/tag/autoencoders/" class="tag-cloud-link tag-link-43033081 tag-link-position-1" style="font-size: 8pt;" aria-label="autoencoders (1 item)">autoencoders</a>
+<a href="https://datascience103579984.wordpress.com/tag/basic/" class="tag-cloud-link tag-link-5352 tag-link-position-2" style="font-size: 8pt;" aria-label="basic (1 item)">basic</a>
+<a href="https://datascience103579984.wordpress.com/tag/bokeh/" class="tag-cloud-link tag-link-434032 tag-link-position-3" style="font-size: 8pt;" aria-label="bokeh (1 item)">bokeh</a>
+<a href="https://datascience103579984.wordpress.com/tag/cheatsheet/" class="tag-cloud-link tag-link-98822 tag-link-position-4" style="font-size: 9.9236641221374pt;" aria-label="cheatsheet (2 items)">cheatsheet</a>
+<a href="https://datascience103579984.wordpress.com/tag/clean/" class="tag-cloud-link tag-link-9519 tag-link-position-5" style="font-size: 8pt;" aria-label="clean (1 item)">clean</a>
+<a href="https://datascience103579984.wordpress.com/tag/clustering/" class="tag-cloud-link tag-link-20099 tag-link-position-6" style="font-size: 8pt;" aria-label="clustering (1 item)">clustering</a>
+<a href="https://datascience103579984.wordpress.com/tag/cnn/" class="tag-cloud-link tag-link-55758 tag-link-position-7" style="font-size: 8pt;" aria-label="CNN (1 item)">CNN</a>
+<a href="https://datascience103579984.wordpress.com/tag/cross-validation/" class="tag-cloud-link tag-link-6510750 tag-link-position-8" style="font-size: 8pt;" aria-label="cross validation (1 item)">cross validation</a>
+<a href="https://datascience103579984.wordpress.com/tag/datacamp/" class="tag-cloud-link tag-link-45734414 tag-link-position-9" style="font-size: 20.717557251908pt;" aria-label="DataCamp (30 items)">DataCamp</a>
+<a href="https://datascience103579984.wordpress.com/tag/data-science-visualization/" class="tag-cloud-link tag-link-375267931 tag-link-position-10" style="font-size: 8pt;" aria-label="Data Science: Visualization (1 item)">Data Science: Visualization</a>
+<a href="https://datascience103579984.wordpress.com/tag/de-noising-images/" class="tag-cloud-link tag-link-693744350 tag-link-position-11" style="font-size: 8pt;" aria-label="de-noising images (1 item)">de-noising images</a>
+<a href="https://datascience103579984.wordpress.com/tag/deep-learning/" class="tag-cloud-link tag-link-1131271 tag-link-position-12" style="font-size: 9.9236641221374pt;" aria-label="deep learning (2 items)">deep learning</a>
+<a href="https://datascience103579984.wordpress.com/tag/dictionary/" class="tag-cloud-link tag-link-2760 tag-link-position-13" style="font-size: 8pt;" aria-label="dictionary (1 item)">dictionary</a>
+<a href="https://datascience103579984.wordpress.com/tag/dimensionality-reduction/" class="tag-cloud-link tag-link-2160231 tag-link-position-14" style="font-size: 8pt;" aria-label="Dimensionality reduction (1 item)">Dimensionality reduction</a>
+<a href="https://datascience103579984.wordpress.com/tag/eda/" class="tag-cloud-link tag-link-112821 tag-link-position-15" style="font-size: 8pt;" aria-label="EDA (1 item)">EDA</a>
+<a href="https://datascience103579984.wordpress.com/tag/feature-engineering/" class="tag-cloud-link tag-link-17698846 tag-link-position-16" style="font-size: 9.9236641221374pt;" aria-label="feature engineering (2 items)">feature engineering</a>
+<a href="https://datascience103579984.wordpress.com/tag/finance/" class="tag-cloud-link tag-link-4269 tag-link-position-17" style="font-size: 12.274809160305pt;" aria-label="finance (4 items)">finance</a>
+<a href="https://datascience103579984.wordpress.com/tag/function/" class="tag-cloud-link tag-link-188922 tag-link-position-18" style="font-size: 8pt;" aria-label="function (1 item)">function</a>
+<a href="https://datascience103579984.wordpress.com/tag/gensim/" class="tag-cloud-link tag-link-172704409 tag-link-position-19" style="font-size: 8pt;" aria-label="gensim (1 item)">gensim</a>
+<a href="https://datascience103579984.wordpress.com/tag/geospatial/" class="tag-cloud-link tag-link-15329 tag-link-position-20" style="font-size: 9.9236641221374pt;" aria-label="geospatial (2 items)">geospatial</a>
+<a href="https://datascience103579984.wordpress.com/tag/ggplot2/" class="tag-cloud-link tag-link-17710643 tag-link-position-21" style="font-size: 8pt;" aria-label="ggplot2 (1 item)">ggplot2</a>
+<a href="https://datascience103579984.wordpress.com/tag/hyperparameter-tuning/" class="tag-cloud-link tag-link-253760021 tag-link-position-22" style="font-size: 8pt;" aria-label="hyperparameter tuning (1 item)">hyperparameter tuning</a>
+<a href="https://datascience103579984.wordpress.com/tag/import/" class="tag-cloud-link tag-link-43222 tag-link-position-23" style="font-size: 8pt;" aria-label="import (1 item)">import</a>
+<a href="https://datascience103579984.wordpress.com/tag/interests/" class="tag-cloud-link tag-link-5646 tag-link-position-24" style="font-size: 8pt;" aria-label="interests (1 item)">interests</a>
+<a href="https://datascience103579984.wordpress.com/tag/intermediate/" class="tag-cloud-link tag-link-63897 tag-link-position-25" style="font-size: 9.9236641221374pt;" aria-label="intermediate (2 items)">intermediate</a>
+<a href="https://datascience103579984.wordpress.com/tag/introduction/" class="tag-cloud-link tag-link-885 tag-link-position-26" style="font-size: 8pt;" aria-label="introduction (1 item)">introduction</a>
+<a href="https://datascience103579984.wordpress.com/tag/introductory/" class="tag-cloud-link tag-link-60374 tag-link-position-27" style="font-size: 9.9236641221374pt;" aria-label="Introductory (2 items)">Introductory</a>
+<a href="https://datascience103579984.wordpress.com/tag/keras/" class="tag-cloud-link tag-link-1772715 tag-link-position-28" style="font-size: 9.9236641221374pt;" aria-label="keras (2 items)">keras</a>
+<a href="https://datascience103579984.wordpress.com/tag/lstm/" class="tag-cloud-link tag-link-5183432 tag-link-position-29" style="font-size: 8pt;" aria-label="LSTM (1 item)">LSTM</a>
+<a href="https://datascience103579984.wordpress.com/tag/machine-learning/" class="tag-cloud-link tag-link-40978 tag-link-position-30" style="font-size: 15.480916030534pt;" aria-label="Machine Learning (9 items)">Machine Learning</a>
+<a href="https://datascience103579984.wordpress.com/tag/markdown/" class="tag-cloud-link tag-link-140810 tag-link-position-31" style="font-size: 8pt;" aria-label="markdown (1 item)">markdown</a>
+<a href="https://datascience103579984.wordpress.com/tag/named-entity-recognition/" class="tag-cloud-link tag-link-5283498 tag-link-position-32" style="font-size: 8pt;" aria-label="named entity recognition (1 item)">named entity recognition</a>
+<a href="https://datascience103579984.wordpress.com/tag/network-analysis/" class="tag-cloud-link tag-link-323636 tag-link-position-33" style="font-size: 8pt;" aria-label="Network Analysis (1 item)">Network Analysis</a>
+<a href="https://datascience103579984.wordpress.com/tag/nlp/" class="tag-cloud-link tag-link-47433 tag-link-position-34" style="font-size: 11.206106870229pt;" aria-label="NLP (3 items)">NLP</a>
+<a href="https://datascience103579984.wordpress.com/tag/pca/" class="tag-cloud-link tag-link-209963 tag-link-position-35" style="font-size: 8pt;" aria-label="PCA (1 item)">PCA</a>
+<a href="https://datascience103579984.wordpress.com/tag/polyglot/" class="tag-cloud-link tag-link-253358 tag-link-position-36" style="font-size: 8pt;" aria-label="polyglot (1 item)">polyglot</a>
+<a href="https://datascience103579984.wordpress.com/tag/possibility/" class="tag-cloud-link tag-link-115592 tag-link-position-37" style="font-size: 8pt;" aria-label="possibility (1 item)">possibility</a>
+<a href="https://datascience103579984.wordpress.com/tag/preprocessing/" class="tag-cloud-link tag-link-4262746 tag-link-position-38" style="font-size: 8pt;" aria-label="preprocessing (1 item)">preprocessing</a>
+<a href="https://datascience103579984.wordpress.com/tag/probability/" class="tag-cloud-link tag-link-10451 tag-link-position-39" style="font-size: 8pt;" aria-label="probability (1 item)">probability</a>
+<a href="https://datascience103579984.wordpress.com/tag/python/" class="tag-cloud-link tag-link-832 tag-link-position-40" style="font-size: 22pt;" aria-label="Python (40 items)">Python</a>
+<a href="https://datascience103579984.wordpress.com/tag/question/" class="tag-cloud-link tag-link-395 tag-link-position-41" style="font-size: 8pt;" aria-label="question (1 item)">question</a>
+<a href="https://datascience103579984.wordpress.com/tag/r/" class="tag-cloud-link tag-link-10189 tag-link-position-42" style="font-size: 14.946564885496pt;" aria-label="R (8 items)">R</a>
+<a href="https://datascience103579984.wordpress.com/tag/recommended/" class="tag-cloud-link tag-link-36319 tag-link-position-43" style="font-size: 8pt;" aria-label="recommended (1 item)">recommended</a>
+<a href="https://datascience103579984.wordpress.com/tag/regular-expression/" class="tag-cloud-link tag-link-178521 tag-link-position-44" style="font-size: 9.9236641221374pt;" aria-label="regular expression (2 items)">regular expression</a>
+<a href="https://datascience103579984.wordpress.com/tag/sgd/" class="tag-cloud-link tag-link-823097 tag-link-position-45" style="font-size: 8pt;" aria-label="sgd (1 item)">sgd</a>
+<a href="https://datascience103579984.wordpress.com/tag/shell/" class="tag-cloud-link tag-link-43912 tag-link-position-46" style="font-size: 8pt;" aria-label="shell (1 item)">shell</a>
+<a href="https://datascience103579984.wordpress.com/tag/spacy/" class="tag-cloud-link tag-link-604910 tag-link-position-47" style="font-size: 9.9236641221374pt;" aria-label="spacy (2 items)">spacy</a>
+<a href="https://datascience103579984.wordpress.com/tag/sql/" class="tag-cloud-link tag-link-10346 tag-link-position-48" style="font-size: 9.9236641221374pt;" aria-label="SQL (2 items)">SQL</a>
+<a href="https://datascience103579984.wordpress.com/tag/start/" class="tag-cloud-link tag-link-28055 tag-link-position-49" style="font-size: 8pt;" aria-label="start (1 item)">start</a>
+<a href="https://datascience103579984.wordpress.com/tag/statistics/" class="tag-cloud-link tag-link-5849 tag-link-position-50" style="font-size: 12.274809160305pt;" aria-label="Statistics (4 items)">Statistics</a>
+<a href="https://datascience103579984.wordpress.com/tag/statistics-fundamentals-with-python/" class="tag-cloud-link tag-link-687071066 tag-link-position-51" style="font-size: 12.274809160305pt;" aria-label="Statistics Fundamentals with Python (4 items)">Statistics Fundamentals with Python</a>
+<a href="https://datascience103579984.wordpress.com/tag/supervised-learning/" class="tag-cloud-link tag-link-9407718 tag-link-position-52" style="font-size: 8pt;" aria-label="Supervised learning (1 item)">Supervised learning</a>
+<a href="https://datascience103579984.wordpress.com/tag/svm/" class="tag-cloud-link tag-link-118970 tag-link-position-53" style="font-size: 8pt;" aria-label="SVM (1 item)">SVM</a>
+<a href="https://datascience103579984.wordpress.com/tag/syllabus/" class="tag-cloud-link tag-link-15350 tag-link-position-54" style="font-size: 8pt;" aria-label="Syllabus (1 item)">Syllabus</a>
+<a href="https://datascience103579984.wordpress.com/tag/tensorflow/" class="tag-cloud-link tag-link-417619185 tag-link-position-55" style="font-size: 8pt;" aria-label="TensorFlow (1 item)">TensorFlow</a>
+<a href="https://datascience103579984.wordpress.com/tag/time/" class="tag-cloud-link tag-link-5087 tag-link-position-56" style="font-size: 8pt;" aria-label="time (1 item)">time</a>
+<a href="https://datascience103579984.wordpress.com/tag/time-series/" class="tag-cloud-link tag-link-1159441 tag-link-position-57" style="font-size: 9.9236641221374pt;" aria-label="Time Series (2 items)">Time Series</a>
+<a href="https://datascience103579984.wordpress.com/tag/unsupervised-learning/" class="tag-cloud-link tag-link-461277 tag-link-position-58" style="font-size: 8pt;" aria-label="Unsupervised Learning (1 item)">Unsupervised Learning</a>
+<a href="https://datascience103579984.wordpress.com/tag/validation/" class="tag-cloud-link tag-link-53079 tag-link-position-59" style="font-size: 8pt;" aria-label="validation (1 item)">validation</a>
+<a href="https://datascience103579984.wordpress.com/tag/visualization/" class="tag-cloud-link tag-link-44111 tag-link-position-60" style="font-size: 13.129770992366pt;" aria-label="visualization (5 items)">visualization</a>
+<a href="https://datascience103579984.wordpress.com/tag/vocabulary/" class="tag-cloud-link tag-link-10174 tag-link-position-61" style="font-size: 8pt;" aria-label="vocabulary (1 item)">vocabulary</a>
+<a href="https://datascience103579984.wordpress.com/tag/xgboost/" class="tag-cloud-link tag-link-353238950 tag-link-position-62" style="font-size: 8pt;" aria-label="XGBoost (1 item)">XGBoost</a></aside><aside id="search-1" class="widget widget_search"><h2 class="widget-title">検索</h2><form role="search" method="get" class="search-form" action="https://datascience103579984.wordpress.com/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="categories-3" class="widget widget_categories"><h2 class="widget-title">Categories</h2>
+			<ul>
+					<li class="cat-item cat-item-45734414"><a href="https://datascience103579984.wordpress.com/category/datacamp/">DataCamp</a> (34)
+<ul class='children'>
+	<li class="cat-item cat-item-685406302"><a href="https://datascience103579984.wordpress.com/category/datacamp/data-scientist-with-python/">Data Scientist with Python</a> (13)
+</li>
+	<li class="cat-item cat-item-688767699"><a href="https://datascience103579984.wordpress.com/category/datacamp/machine-learning-scientist-with-python/">Machine Learning Scientist with Python</a> (10)
+</li>
+	<li class="cat-item cat-item-686530824"><a href="https://datascience103579984.wordpress.com/category/datacamp/skill-track/">Skill Track</a> (7)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-675553776"><a href="https://datascience103579984.wordpress.com/category/harvardx-data-science/">HarvardX Data Science</a> (20)
+<ul class='children'>
+	<li class="cat-item cat-item-676319786"><a href="https://datascience103579984.wordpress.com/category/harvardx-data-science/data-science-inference-and-modeling/">Data Science: Inference and Modeling</a> (3)
+</li>
+	<li class="cat-item cat-item-676090368"><a href="https://datascience103579984.wordpress.com/category/harvardx-data-science/data-science-probability/">Data Science: Probability</a> (3)
+</li>
+	<li class="cat-item cat-item-375267931"><a href="https://datascience103579984.wordpress.com/category/harvardx-data-science/data-science-visualization/">Data Science: Visualization</a> (7)
+</li>
+	<li class="cat-item cat-item-677121287"><a href="https://datascience103579984.wordpress.com/category/harvardx-data-science/data-science-wrangling/">Data Science: Wrangling</a> (5)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-1982"><a href="https://datascience103579984.wordpress.com/category/%e6%9c%aa%e5%88%86%e9%a1%9e/">未分類</a> (57)
+</li>
+			</ul>
+
+			</aside><aside id="archives-3" class="widget widget_archive"><h2 class="widget-title">Archives</h2>
+			<ul>
+					<li><a href='https://datascience103579984.wordpress.com/2020/01/'>January 2020</a>&nbsp;(6)</li>
+	<li><a href='https://datascience103579984.wordpress.com/2019/12/'>December 2019</a>&nbsp;(5)</li>
+	<li><a href='https://datascience103579984.wordpress.com/2019/11/'>November 2019</a>&nbsp;(2)</li>
+	<li><a href='https://datascience103579984.wordpress.com/2019/10/'>October 2019</a>&nbsp;(1)</li>
+	<li><a href='https://datascience103579984.wordpress.com/2019/09/'>September 2019</a>&nbsp;(13)</li>
+	<li><a href='https://datascience103579984.wordpress.com/2019/08/'>August 2019</a>&nbsp;(15)</li>
+	<li><a href='https://datascience103579984.wordpress.com/2019/07/'>July 2019</a>&nbsp;(7)</li>
+	<li><a href='https://datascience103579984.wordpress.com/2019/05/'>May 2019</a>&nbsp;(15)</li>
+	<li><a href='https://datascience103579984.wordpress.com/2019/04/'>April 2019</a>&nbsp;(39)</li>
+	<li><a href='https://datascience103579984.wordpress.com/2019/03/'>March 2019</a>&nbsp;(7)</li>
+			</ul>
+
+			</aside>			<div id="atatags-286348-634ed623e9cec"></div>
+			
+			<script>
+				__ATA.cmd.push(function() {
+					__ATA.initDynamicSlot({
+						id: 'atatags-286348-634ed623e9cec',
+						location: 140,
+						formFactor: '003',
+						label: {
+							text: 'Advertisements',
+						},
+						creative: {
+							reportAd: {
+								text: 'Report this ad',
+							},
+							privacySettings: {
+								text: 'Privacy',
+								
+							}
+						}
+					});
+				});
+			</script></div><!-- #secondary -->
+
+	</div><!-- #content -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+
+		
+		<div class="site-info small-part">
+			<a href="https://wordpress.com/?ref=footer_blog" rel="nofollow">Blog at WordPress.com.</a>
+			
+					</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+<a href="#top" class="to-top"><i class="fa fa-angle-up fa-lg"><span class="screen-reader-text">Back to top</span></i></a>
+<!--  -->
+<div id="marketingbar" class="marketing-bar noskim"><div class="marketing-bar-text">Create your website with WordPress.com</div><a class="marketing-bar-button" href="https://wordpress.com/start/?ref=marketing_bar">Get started</a><a class="marketing-bar-link" tabindex="-1" aria-label="Create your website at WordPress.com" href="https://wordpress.com/start/?ref=marketing_bar"></a></div><script src='//0.gravatar.com/js/gprofiles.js?ver=202242z' id='grofiles-cards-js'></script>
+<script id='wpgroho-js-extra'>
+var WPGroHo = {"my_hash":""};
+</script>
+<script crossorigin='anonymous' type='text/javascript' src='https://s0.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1610363240h'></script>
+
+	<script>
+		// Initialize and attach hovercards to all gravatars
+		( function() {
+			function init() {
+				if ( typeof Gravatar === 'undefined' ) {
+					return;
+				}
+
+				if ( typeof Gravatar.init !== 'function' ) {
+					return;
+				}
+
+				Gravatar.profile_cb = function ( hash, id ) {
+					WPGroHo.syncProfileData( hash, id );
+				};
+
+				Gravatar.my_hash = WPGroHo.my_hash;
+				Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+			}
+
+			if ( document.readyState !== 'loading' ) {
+				init();
+			} else {
+				document.addEventListener( 'DOMContentLoaded', init );
+			}
+		} )();
+	</script>
+
+		<div style="display:none">
+	</div>
+<script id='highlander-comments-js-extra'>
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/datascience103579984.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/datascience103579984.wordpress.com\/wp-login.php?action=logout&_wpnonce=7ad1d4c238","homeURL":"https:\/\/datascience103579984.wordpress.com\/","postID":"6167","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"","text_direction":"ltr"};
+</script>
+<script crossorigin='anonymous' type='text/javascript' src='https://s0.wp.com/_static/??/wp-content/js/textarea-autosize.min.js,/wp-content/mu-plugins/highlander-comments/script.js?m=1663141412j'></script>
+		<!-- CCPA [start] -->
+		<script type="text/javascript">
+			( function () {
+
+				var setupPrivacy = function() {
+
+					// Minimal Mozilla Cookie library
+					// https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework
+					var cookieLib = window.cookieLib = {getItem:function(e){return e&&decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*"+encodeURIComponent(e).replace(/[\-\.\+\*]/g,"\\$&")+"\\s*\\=\\s*([^;]*).*$)|^.*$"),"$1"))||null},setItem:function(e,o,n,t,r,i){if(!e||/^(?:expires|max\-age|path|domain|secure)$/i.test(e))return!1;var c="";if(n)switch(n.constructor){case Number:c=n===1/0?"; expires=Fri, 31 Dec 9999 23:59:59 GMT":"; max-age="+n;break;case String:c="; expires="+n;break;case Date:c="; expires="+n.toUTCString()}return"rootDomain"!==r&&".rootDomain"!==r||(r=(".rootDomain"===r?".":"")+document.location.hostname.split(".").slice(-2).join(".")),document.cookie=encodeURIComponent(e)+"="+encodeURIComponent(o)+c+(r?"; domain="+r:"")+(t?"; path="+t:"")+(i?"; secure":""),!0}};
+
+					// Implement IAB USP API.
+					window.__uspapi = function( command, version, callback ) {
+
+						// Validate callback.
+						if ( typeof callback !== 'function' ) {
+							return;
+						}
+
+						// Validate the given command.
+						if ( command !== 'getUSPData' || version !== 1 ) {
+							callback( null, false );
+							return;
+						}
+
+						// Check for GPC. If set, override any stored cookie.
+						if ( navigator.globalPrivacyControl ) {
+							callback( { version: 1, uspString: '1YYN' }, true );
+							return;
+						}
+
+						// Check for cookie.
+						var consent = cookieLib.getItem( 'usprivacy' );
+
+						// Invalid cookie.
+						if ( null === consent ) {
+							callback( null, false );
+							return;
+						}
+
+						// Everything checks out. Fire the provided callback with the consent data.
+						callback( { version: 1, uspString: consent }, true );
+					};
+
+					// Initialization.
+					document.addEventListener( 'DOMContentLoaded', function() {
+
+						// Internal functions.
+						var setDefaultOptInCookie = function() {
+							var value = '1YNN';
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'usprivacy', value, 365 * 24 * 60 * 60, '/', domain );
+						};
+
+						var setDefaultOptOutCookie = function() {
+							var value = '1YYN';
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'usprivacy', value, 24 * 60 * 60, '/', domain );
+						};
+
+						var setDefaultNotApplicableCookie = function() {
+							var value = '1---';
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'usprivacy', value, 24 * 60 * 60, '/', domain );
+						};
+
+						var setCcpaAppliesCookie = function( applies ) {
+							var domain = '.wordpress.com' === location.hostname.slice( -14 ) ? '.rootDomain' : location.hostname;
+							cookieLib.setItem( 'ccpa_applies', applies, 24 * 60 * 60, '/', domain );
+						}
+
+						var maybeCallDoNotSellCallback = function() {
+							if ( 'function' === typeof window.doNotSellCallback ) {
+								return window.doNotSellCallback();
+							}
+
+							return false;
+						}
+
+						// Look for usprivacy cookie first.
+						var usprivacyCookie = cookieLib.getItem( 'usprivacy' );
+
+						// Found a usprivacy cookie.
+						if ( null !== usprivacyCookie ) {
+
+							// If the cookie indicates that CCPA does not apply, then bail.
+							if ( '1---' === usprivacyCookie ) {
+								return;
+							}
+
+							// CCPA applies, so call our callback to add Do Not Sell link to the page.
+							maybeCallDoNotSellCallback();
+
+							// We're all done, no more processing needed.
+							return;
+						}
+
+						// We don't have a usprivacy cookie, so check to see if we have a CCPA applies cookie.
+						var ccpaCookie = cookieLib.getItem( 'ccpa_applies' );
+
+						// No CCPA applies cookie found, so we'll need to geolocate if this visitor is from California.
+						// This needs to happen client side because we do not have region geo data in our $SERVER headers,
+						// only country data -- therefore we can't vary cache on the region.
+						if ( null === ccpaCookie ) {
+
+							var request = new XMLHttpRequest();
+							request.open( 'GET', 'https://public-api.wordpress.com/geo/', true );
+
+							request.onreadystatechange = function () {
+								if ( 4 === this.readyState ) {
+									if ( 200 === this.status ) {
+
+										// Got a geo response. Parse out the region data.
+										var data = JSON.parse( this.response );
+										var ccpa_applies = data['region'] && data['region'].toLowerCase() === 'california';
+
+										// Set CCPA applies cookie. This keeps us from having to make a geo request too frequently.
+										setCcpaAppliesCookie( ccpa_applies );
+
+										// Check if CCPA applies to set the proper usprivacy cookie.
+										if ( ccpa_applies ) {
+											if ( maybeCallDoNotSellCallback() ) {
+												// Do Not Sell link added, so set default opt-in.
+												setDefaultOptInCookie();
+											} else {
+												// Failed showing Do Not Sell link as required, so default to opt-OUT just to be safe.
+												setDefaultOptOutCookie();
+											}
+										} else {
+											// CCPA does not apply.
+											setDefaultNotApplicableCookie();
+										}
+									} else {
+										// Could not geo, so let's assume for now that CCPA applies to be safe.
+										setCcpaAppliesCookie( true );
+										if ( maybeCallDoNotSellCallback() ) {
+											// Do Not Sell link added, so set default opt-in.
+											setDefaultOptInCookie();
+										} else {
+											// Failed showing Do Not Sell link as required, so default to opt-OUT just to be safe.
+											setDefaultOptOutCookie();
+										}
+									}
+								}
+							};
+
+							// Send the geo request.
+							request.send();
+						} else {
+							// We found a CCPA applies cookie.
+							if ( ccpaCookie === 'true' ) {
+								if ( maybeCallDoNotSellCallback() ) {
+									// Do Not Sell link added, so set default opt-in.
+									setDefaultOptInCookie();
+								} else {
+									// Failed showing Do Not Sell link as required, so default to opt-OUT just to be safe.
+									setDefaultOptOutCookie();
+								}
+							} else {
+								// CCPA does not apply.
+								setDefaultNotApplicableCookie();
+							}
+						}
+					} );
+				};
+
+				// Kickoff initialization.
+				if ( window.defQueue && defQueue.isLOHP && defQueue.isLOHP === 2020 ) {
+					defQueue.items.push( setupPrivacy );
+				} else {
+					setupPrivacy();
+				}
+
+			} )();
+		</script>
+
+		<!-- CCPA [end] -->
+		<div class="widget widget_eu_cookie_law_widget">
+<div
+	class="hide-on-button ads-active"
+	data-hide-timeout="30"
+	data-consent-expiration="180"
+	id="eu-cookie-law"
+	style="display: none"
+>
+	<form method="post">
+		<input type="submit" value="Close and accept" class="accept" />
+
+		Privacy &amp; Cookies: This site uses cookies. By continuing to use this website, you agree to their use. <br />
+To find out more, including how to control cookies, see here:
+				<a href="https://automattic.com/cookies/" rel="nofollow">
+			Cookie Policy		</a>
+ </form>
+</div>
+</div>		<script type="text/javascript">
+		( function() {
+			function init() {
+				document.body.addEventListener( 'is.post-load', function() {
+					if ( typeof __ATA.insertInlineAds === 'function' ) {
+						__ATA.insertInlineAds();
+					}
+				} );
+			}
+
+			if ( document.readyState !== 'loading' ) {
+				init();
+			} else {
+				document.addEventListener( 'DOMContentLoaded', init );
+			}
+		} )();
+		</script>	<div id="actionbar" style="display: none;"
+			class="actnbr-pub-nucleare actnbr-has-follow">
+		<ul>
+								<li class="actnbr-btn actnbr-hidden">
+								<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon gridicons-reader-follow" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"/></g></svg><span>Follow</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon gridicons-reader-following" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 13.482L15.508 21 12 17.4l1.412-1.388 2.106 2.188 6.094-6.094L23 13.482zm-7.455 1.862L20 10.89V2H2v14c0 1.1.9 2 2 2h4.538l4.913-4.832 2.095 2.176zM8 13H4v-1h4v1zm3-2H4v-1h7v1zm0-2H4V8h7v1zm7-3H4V4h14v2z"/></g></svg><span>Following</span>
+		</a>
+							<div class="actnbr-popover tip tip-top-left actnbr-notice" id="follow-bubble">
+							<div class="tip-arrow"></div>
+							<div class="tip-inner actnbr-follow-bubble">
+															<ul>
+											<li class="actnbr-sitename">
+			<a href="https://datascience103579984.wordpress.com">
+				<img alt='' src='https://s0.wp.com/i/logo/wpcom-gray-white.png' class='avatar avatar-50' height='50' width='50' />				way to be a data scientist			</a>
+		</li>
+										<form method="post" action="https://subscribe.wordpress.com" accept-charset="utf-8" style="display: none;">
+																						<div class="actnbr-follow-count">Join 27 other followers</div>
+																					<div>
+										<input type="email" name="email" placeholder="Enter your email address" class="actnbr-email-field" aria-label="Enter your email address" />
+										</div>
+										<input type="hidden" name="action" value="subscribe" />
+										<input type="hidden" name="blog_id" value="160251772" />
+										<input type="hidden" name="source" value="https://datascience103579984.wordpress.com/2019/12/23/preprocessing-for-machine-learning-in-python-from-datacamp/" />
+										<input type="hidden" name="sub-type" value="actionbar-follow" />
+										<input type="hidden" id="_wpnonce" name="_wpnonce" value="c880955a4d" />										<div class="actnbr-button-wrap">
+											<button type="submit" value="Sign me up">
+												Sign me up											</button>
+										</div>
+									</form>
+									<li class="actnbr-login-nudge">
+										<div>
+											Already have a WordPress.com account? <a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fdatascience103579984.wordpress.com%2F2019%2F12%2F23%2Fpreprocessing-for-machine-learning-in-python-from-datacamp%2F&#038;signup_flow=account">Log in now.</a>										</div>
+									</li>
+								</ul>
+															</div>
+						</div>
+					</li>
+							<li class="actnbr-ellipsis actnbr-hidden">
+				<svg class="gridicon gridicons-ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M7 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm12-2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-7 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/></g></svg>				<div class="actnbr-popover tip tip-top-left actnbr-more">
+					<div class="tip-arrow"></div>
+					<div class="tip-inner">
+						<ul>
+									<li class="actnbr-sitename">
+			<a href="https://datascience103579984.wordpress.com">
+				<img alt='' src='https://s0.wp.com/i/logo/wpcom-gray-white.png' class='avatar avatar-50' height='50' width='50' />				way to be a data scientist			</a>
+		</li>
+								<li class="actnbr-folded-customize">
+								<a href="https://datascience103579984.wordpress.com/wp-admin/customize.php?url=https%3A%2F%2Fdatascience103579984.wordpress.com%2F2019%2F12%2F23%2Fpreprocessing-for-machine-learning-in-python-from-datacamp%2F">
+									<svg class="gridicon gridicons-customize" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M2 6c0-1.505.78-3.08 2-4 0 .845.69 2 2 2 1.657 0 3 1.343 3 3 0 .386-.08.752-.212 1.09.74.594 1.476 1.19 2.19 1.81L8.9 11.98c-.62-.716-1.214-1.454-1.807-2.192C6.753 9.92 6.387 10 6 10c-2.21 0-4-1.79-4-4zm12.152 6.848l1.34-1.34c.607.304 1.283.492 2.008.492 2.485 0 4.5-2.015 4.5-4.5 0-.725-.188-1.4-.493-2.007L18 9l-2-2 3.507-3.507C18.9 3.188 18.225 3 17.5 3 15.015 3 13 5.015 13 7.5c0 .725.188 1.4.493 2.007L3 20l2 2 6.848-6.848c1.885 1.928 3.874 3.753 5.977 5.45l1.425 1.148 1.5-1.5-1.15-1.425c-1.695-2.103-3.52-4.092-5.448-5.977z"/></g></svg>									<span>Customize</span>
+								</a>
+							</li>
+																<li class="actnbr-folded-follow">
+												<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon gridicons-reader-follow" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"/></g></svg><span>Follow</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon gridicons-reader-following" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 13.482L15.508 21 12 17.4l1.412-1.388 2.106 2.188 6.094-6.094L23 13.482zm-7.455 1.862L20 10.89V2H2v14c0 1.1.9 2 2 2h4.538l4.913-4.832 2.095 2.176zM8 13H4v-1h4v1zm3-2H4v-1h7v1zm0-2H4V8h7v1zm7-3H4V4h14v2z"/></g></svg><span>Following</span>
+		</a>
+										</li>
+																	<li class="actnbr-signup"><a href="https://wordpress.com/start/">Sign up</a></li>
+									<li class="actnbr-login"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fdatascience103579984.wordpress.com%2F2019%2F12%2F23%2Fpreprocessing-for-machine-learning-in-python-from-datacamp%2F&#038;signup_flow=account">Log in</a></li>
+																	<li class="actnbr-shortlink"><a href="https://wp.me/paQoO0-1Bt">Copy shortlink</a></li>
+																	<li class="flb-report"><a href="http://en.wordpress.com/abuse/">Report this content</a></li>
+																	<li class="actnbr-reader">
+										<a href="https://wordpress.com/read/blogs/160251772/posts/6167">
+											View post in Reader										</a>
+									</li>
+																	<li class="actnbr-subs">
+										<a href="https://subscribe.wordpress.com/">Manage subscriptions</a>
+									</li>
+																		<li class="actnbr-fold"><a href="">Collapse this bar</a></li>
+															</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+<script>
+window.addEventListener( "load", function( event ) {
+	var link = document.createElement( "link" );
+	link.href = "https://s0.wp.com/wp-content/mu-plugins/actionbar/actionbar.css?v=20210915";
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	document.head.appendChild( link );
+
+	var script = document.createElement( "script" );
+	script.src = "https://s0.wp.com/wp-content/mu-plugins/actionbar/actionbar.js?v=20220329";
+	script.defer = true;
+	document.body.appendChild( script );
+} );
+</script>
+
+			<div id="jp-carousel-loading-overlay">
+			<div id="jp-carousel-loading-wrapper">
+				<span id="jp-carousel-library-loading">&nbsp;</span>
+			</div>
+		</div>
+		<div class="jp-carousel-overlay" style="display: none;">
+
+		<div class="jp-carousel-container">
+			<!-- The Carousel Swiper -->
+			<div
+				class="jp-carousel-wrap swiper-container jp-carousel-swiper-container jp-carousel-transitions"
+				itemscope
+				itemtype="https://schema.org/ImageGallery">
+				<div class="jp-carousel swiper-wrapper"></div>
+				<div class="jp-swiper-button-prev swiper-button-prev">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskPrev" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="9" height="12">
+							<path d="M16.2072 16.59L11.6496 12L16.2072 7.41L14.8041 6L8.8335 12L14.8041 18L16.2072 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskPrev)">
+							<rect x="0.579102" width="23.8823" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+				<div class="jp-swiper-button-next swiper-button-next">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskNext" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="8" height="12">
+							<path d="M8.59814 16.59L13.1557 12L8.59814 7.41L10.0012 6L15.9718 12L10.0012 18L8.59814 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskNext)">
+							<rect x="0.34375" width="23.8822" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+			</div>
+			<!-- The main close buton -->
+			<div class="jp-carousel-close-hint">
+				<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<mask id="maskClose" mask-type="alpha" maskUnits="userSpaceOnUse" x="5" y="5" width="15" height="14">
+						<path d="M19.3166 6.41L17.9135 5L12.3509 10.59L6.78834 5L5.38525 6.41L10.9478 12L5.38525 17.59L6.78834 19L12.3509 13.41L17.9135 19L19.3166 17.59L13.754 12L19.3166 6.41Z" fill="white"/>
+					</mask>
+					<g mask="url(#maskClose)">
+						<rect x="0.409668" width="23.8823" height="24" fill="#FFFFFF"/>
+					</g>
+				</svg>
+			</div>
+			<!-- Image info, comments and meta -->
+			<div class="jp-carousel-info">
+				<div class="jp-carousel-info-footer">
+					<div class="jp-carousel-pagination-container">
+						<div class="jp-swiper-pagination swiper-pagination"></div>
+						<div class="jp-carousel-pagination"></div>
+					</div>
+					<div class="jp-carousel-photo-title-container">
+						<h2 class="jp-carousel-photo-caption"></h2>
+					</div>
+					<div class="jp-carousel-photo-icons-container">
+						<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-info" aria-label="Toggle photo metadata visibility">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskInfo" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M12.7537 2C7.26076 2 2.80273 6.48 2.80273 12C2.80273 17.52 7.26076 22 12.7537 22C18.2466 22 22.7046 17.52 22.7046 12C22.7046 6.48 18.2466 2 12.7537 2ZM11.7586 7V9H13.7488V7H11.7586ZM11.7586 11V17H13.7488V11H11.7586ZM4.79292 12C4.79292 16.41 8.36531 20 12.7537 20C17.142 20 20.7144 16.41 20.7144 12C20.7144 7.59 17.142 4 12.7537 4C8.36531 4 4.79292 7.59 4.79292 12Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskInfo)">
+										<rect x="0.8125" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+							</span>
+						</a>
+												<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-comments" aria-label="Toggle photo comments visibility">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskComments" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M4.3271 2H20.2486C21.3432 2 22.2388 2.9 22.2388 4V16C22.2388 17.1 21.3432 18 20.2486 18H6.31729L2.33691 22V4C2.33691 2.9 3.2325 2 4.3271 2ZM6.31729 16H20.2486V4H4.3271V18L6.31729 16Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskComments)">
+										<rect x="0.34668" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+
+								<span class="jp-carousel-has-comments-indicator" aria-label="This image has comments."></span>
+							</span>
+						</a>
+											</div>
+				</div>
+				<div class="jp-carousel-info-extra">
+					<div class="jp-carousel-info-content-wrapper">
+						<div class="jp-carousel-photo-title-container">
+							<h2 class="jp-carousel-photo-title"></h2>
+						</div>
+						<div class="jp-carousel-comments-wrapper">
+															<div id="jp-carousel-comments-loading">
+									<span>Loading Comments...</span>
+								</div>
+								<div class="jp-carousel-comments"></div>
+								<div id="jp-carousel-comment-form-container">
+									<span id="jp-carousel-comment-form-spinner">&nbsp;</span>
+									<div id="jp-carousel-comment-post-results"></div>
+																														<form id="jp-carousel-comment-form">
+												<label for="jp-carousel-comment-form-comment-field" class="screen-reader-text">Write a Comment...</label>
+												<textarea
+													name="comment"
+													class="jp-carousel-comment-form-field jp-carousel-comment-form-textarea"
+													id="jp-carousel-comment-form-comment-field"
+													placeholder="Write a Comment..."
+												></textarea>
+												<div id="jp-carousel-comment-form-submit-and-info-wrapper">
+													<div id="jp-carousel-comment-form-commenting-as">
+																													<fieldset>
+																<label for="jp-carousel-comment-form-email-field">Email (Required)</label>
+																<input type="text" name="email" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-email-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-author-field">Name (Required)</label>
+																<input type="text" name="author" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-author-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-url-field">Website</label>
+																<input type="text" name="url" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-url-field" />
+															</fieldset>
+																											</div>
+													<input
+														type="submit"
+														name="submit"
+														class="jp-carousel-comment-form-button"
+														id="jp-carousel-comment-form-button-submit"
+														value="Post Comment" />
+												</div>
+											</form>
+																											</div>
+													</div>
+						<div class="jp-carousel-image-meta">
+							<div class="jp-carousel-title-and-caption">
+								<div class="jp-carousel-photo-info">
+									<h3 class="jp-carousel-caption" itemprop="caption description"></h3>
+								</div>
+
+								<div class="jp-carousel-photo-description"></div>
+							</div>
+							<ul class="jp-carousel-image-exif" style="display: none;"></ul>
+							<a class="jp-carousel-image-download" target="_blank" style="display: none;">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="3" y="3" width="19" height="18">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M5.84615 5V19H19.7775V12H21.7677V19C21.7677 20.1 20.8721 21 19.7775 21H5.84615C4.74159 21 3.85596 20.1 3.85596 19V5C3.85596 3.9 4.74159 3 5.84615 3H12.8118V5H5.84615ZM14.802 5V3H21.7677V10H19.7775V6.41L9.99569 16.24L8.59261 14.83L18.3744 5H14.802Z" fill="white"/>
+									</mask>
+									<g mask="url(#mask0)">
+										<rect x="0.870605" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+								<span class="jp-carousel-download-text"></span>
+							</a>
+							<div class="jp-carousel-image-map" style="display: none;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+		
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/datascience103579984.wordpress.com\/2019\/12\/23\/preprocessing-for-machine-learning-in-python-from-datacamp\/":6167};
+	</script>
+				<style>.wp-block-gallery.wp-block-gallery-1{ --wp--style--unstable-gallery-gap: var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) ); gap: var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) )}</style>
+<script crossorigin='anonymous' type='text/javascript' src='https://s0.wp.com/_static/??-eJzTLy/QTc7PK0nNK9EvyClNz8wr1i+uzCtJrMjITM/IAeKS1CJMEWP94uSizIISoOIM5/yiVL2sYh19yo1yKiotzgioLMnIzwOaaJ9ra2hmaGpibmZpbJQFAFtgQQs='></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.head.appendChild( corecss );
+		var themecssurl = "https://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414h&amp;ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		document.head.appendChild( themecss );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+
+	// Infinite scroll support
+	if ( typeof( jQuery ) !== 'undefined' ) {
+		jQuery( function( $ ) {
+			$( document.body ).on( 'post-load', function() {
+				SyntaxHighlighter.highlight();
+			} );
+		} );
+	}
+</script>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-3' href='https://s0.wp.com/_static/??-eJyljFEKgzAQBS9kXCw2kI/Ss+i6SGKyWbJZvL4t1BP0b97wGDjFYeVO3KGYk2x7ZIVEXRY8fhuk1c2wx8pQPpRJAZdWTSmDnlGoudV4yzSi6gB/N+/rLb7Zd3lN/unnRwh+She1E0V3?cssminify=yes' type='text/css' media='all' />
+<script id='comment-like-js-extra'>
+var comment_like_text = {"loading":"Loading...","swipeUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/comment-likes\/js\/lib\/swipe.js?ver=20131008"};
+</script>
+<script id='coblocks-lightbox-js-extra'>
+var coblocksLigthboxData = {"closeLabel":"Close Gallery","leftLabel":"Previous","rightLabel":"Next"};
+</script>
+<script id='jetpack-carousel-js-extra'>
+var jetpackSwiperLibraryPath = {"url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/jetpack-plugin\/production\/_inc\/build\/carousel\/swiper-bundle.min.js"};
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"https:\/\/datascience103579984.wordpress.com\/wp-admin\/admin-ajax.php","nonce":"2cdbca69af","display_exif":"1","display_comments":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","download_original":"View full size <span class=\"photo-size\">{0}<span class=\"photo-size-times\">\u00d7<\/span>{1}<\/span>","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"https:\/\/datascience103579984.wordpress.com\/wp-login.php?redirect_to=https%3A%2F%2Fdatascience103579984.wordpress.com%2F2019%2F12%2F23%2Fpreprocessing-for-machine-learning-in-python-from-datacamp%2F","blog_id":"160251772","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"stats_query_args":"blog=160251772&v=wpcom&tz=9&user_id=0&subd=datascience103579984","is_public":"1"};
+</script>
+<script id='sharing-js-js-extra'>
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+</script>
+<script crossorigin='anonymous' type='text/javascript' src='https://s0.wp.com/_static/??-eJyNUltSwzAMvBCOCGE6/WE4CuPYaqLEL/xo2tujkqaUDBP6ZXu1u1rLhikI5V1Gl2FIoPFICsOpGtIT3JVsEcGUjlyCiXSHOQEWrvqRUBg5QUYbjMy4wjd8DI3M/ixYsJdOG4wbZOWtZUjMomEFrIU/qtZ4NSZ4qep9VYtEHBJFxGPVgKaUZ6eZxFZdn1t/qiy5tWPu0XLjUFpwRRmUES/aZf8oXR6pk5n8o/5ppMC53CgOXpUkDnR7GXLKFP17GBGDOf8V/26SUnNdtDKClSlj5J3IUfIANkQD5sCU6xlC9Lqoyz3gg3NAW8hoUDL6ktDc2AvwX6KRksUsmup5tluAQ/wm661/cW0hpsBDWB03dMEn9jeSIqReRnLdsrLo3b7Vu93rfl/v6mb4AixuK2Y='></script>
+<script type='text/javascript'>
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-twitter' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-twitter' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+						return false;
+					}
+				} );
+			} )();
+var windowOpen;
+			( function () {
+				function matches( el, sel ) {
+					return !! (
+						el.matches && el.matches( sel ) ||
+						el.msMatchesSelector && el.msMatchesSelector( sel )
+					);
+				}
+
+				document.body.addEventListener( 'click', function ( event ) {
+					if ( ! event.target ) {
+						return;
+					}
+
+					var el;
+					if ( matches( event.target, 'a.share-facebook' ) ) {
+						el = event.target;
+					} else if ( event.target.parentNode && matches( event.target.parentNode, 'a.share-facebook' ) ) {
+						el = event.target.parentNode;
+					}
+
+					if ( el ) {
+						event.preventDefault();
+
+						// If there's another sharing window open, close it.
+						if ( typeof windowOpen !== 'undefined' ) {
+							windowOpen.close();
+						}
+						windowOpen = window.open( el.getAttribute( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+						return false;
+					}
+				} );
+			} )();
+</script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>	<iframe src='https://widgets.wp.com/likes/master.html?ver=20220105#ver=20220105&amp;origin=https://datascience103579984.wordpress.com' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+	<div id='likes-other-gravatars'>
+		<div class="likes-text">
+			<span>%d</span> bloggers like this:		</div>
+		<ul class="wpl-avatars sd-like-gravatars"></ul>
+	</div>
+
+		<script src="//stats.wp.com/w.js?63" defer></script> <script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'160251772','blog_tz':'9','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'160251772','v':'wpcom','tz':'9','user_id':'0','post':'6167','subd':'datascience103579984'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhRUDQsP1tdVUZYUVZqSU9FXXg2VFhIOSs3R0tVOS13ekM/WVZBbC5lfmxMSC9KOVJEJTRTQl85LTU0MVt+WF8rP0lSbWZaTElQWUhubWFpRj0sZ2M0OFdXbllJX09OcD1sZ2VjdVl3V3BiTUZvSGUtK3BQQXhuSldPckVDbythYiVzM1RIbDYlRjlLN01UViVzWHNoNTMxdDFRRjd6cXI1a0NGVVldWU5pR3xkQmVbZ2F4UDF6fnJlLzhCcVZIVC1HblhEV0FMXUdVdGUzMTMwYVo9ZUNaPWM4W0l8OWxLT1hzaltbTFRofmZVRllWUlptL1BBR1dQZ1MvRl1pWWEvL18wYUNsak1QdWUmZlk='}]);
+_stq.push([ 'clickTrackerInit', '160251772', '6167' ]);
+	</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:1px;width:1px;overflow:hidden;position:absolute;bottom:1px;" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+</body>
+</html>
