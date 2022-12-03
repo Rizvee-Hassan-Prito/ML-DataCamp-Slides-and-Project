@@ -1,0 +1,1741 @@
+<!DOCTYPE html><html lang="en">
+  <head><!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-168897250-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-168897250-1');
+		
+	</script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>Introduction to Data Visualization with Matplotlib - Yulei's Sandbox</title>
+
+<meta name="description" content="Base on DataCamp.">
+<link rel="canonical" href="https://yuleii.github.io/2020/07/02/introduction-to-data-visualization-with-matplotlib.html"><link rel="alternate" type="application/rss+xml" title="Yulei's Sandbox" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><!-- <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"> -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><!-- <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"> -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><!-- <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"> -->
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><!-- <link rel="manifest" href="/assets/site.webmanifest"> -->
+<link rel="manifest" href="/site.webmanifest"><!-- <link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"> -->
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="shortcut icon" href="/assets/favicon.ico">
+
+<!-- <meta name="msapplication-TileColor" content="#ffc40d"> -->
+<meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/browserconfig.xml">
+
+<meta name="theme-color" content="#ffffff">
+
+<!-- end favicons snippet -->
+
+
+
+<!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"> -->
+<link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" ><!-- start custom head snippets -->
+
+<!-- end custom head snippets -->
+<script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.6',
+      sources: {
+        font_awesome: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn.jsdelivr.net/npm/leancloud-storage@3.13.2/dist/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script>
+</head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport has-aside cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="2048.000000pt" height="2048.000000pt" viewBox="0 0 2048.000000 2048.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,2048.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M12499 20026 c-5 -5 -215 -43 -312 -56 -74 -10 -164 -39 -332 -107
+-103 -41 -127 -51 -212 -89 -18 -8 -48 -20 -65 -28 -85 -37 -110 -48 -213 -90
+-184 -75 -184 -75 -305 -128 -25 -11 -54 -24 -65 -28 -11 -5 -40 -18 -65 -28
+-25 -11 -76 -32 -115 -47 -62 -24 -168 -70 -290 -124 -45 -20 -102 -44 -220
+-91 -84 -34 -150 -62 -200 -85 -16 -7 -51 -23 -77 -34 -27 -12 -68 -30 -92
+-41 -24 -11 -48 -20 -54 -20 -6 0 -23 -6 -39 -14 -15 -8 -53 -24 -83 -36 -30
+-12 -73 -30 -95 -40 -22 -9 -58 -25 -80 -34 -41 -18 -79 -34 -137 -60 -101
+-45 -128 -56 -134 -56 -3 0 -102 -41 -218 -91 -116 -51 -249 -107 -296 -126
+-47 -19 -99 -40 -117 -48 -17 -8 -34 -15 -37 -15 -3 0 -41 -16 -83 -36 -43
+-19 -94 -42 -113 -50 -19 -8 -48 -21 -63 -29 -16 -8 -33 -15 -39 -15 -5 0 -24
+-6 -41 -14 -18 -8 -61 -27 -97 -41 -36 -14 -78 -32 -95 -40 -16 -8 -52 -23
+-80 -35 -75 -33 -106 -46 -145 -64 -19 -8 -64 -26 -100 -40 -70 -27 -192 -78
+-281 -118 -112 -52 -206 -91 -281 -119 -42 -15 -85 -33 -95 -38 -10 -6 -40
+-20 -68 -31 -48 -20 -73 -31 -147 -64 -18 -8 -62 -27 -98 -41 -36 -14 -74 -30
+-85 -35 -11 -5 -45 -19 -75 -31 -52 -20 -106 -43 -175 -74 -16 -8 -52 -23 -80
+-35 -27 -12 -59 -26 -70 -31 -11 -5 -58 -24 -105 -42 -71 -28 -397 -167 -465
+-197 -11 -5 -71 -30 -132 -55 -62 -24 -121 -49 -130 -54 -10 -5 -40 -19 -68
+-31 -27 -12 -63 -28 -80 -35 -16 -8 -59 -25 -95 -39 -72 -27 -199 -80 -245
+-101 -16 -8 -52 -23 -80 -35 -27 -12 -65 -28 -82 -36 -40 -17 -83 -35 -148
+-62 -239 -99 -425 -180 -510 -224 -155 -80 -297 -216 -367 -353 -42 -81 -71
+-134 -131 -238 -31 -54 -57 -102 -57 -107 0 -5 -9 -29 -19 -52 -26 -59 -54
+-132 -130 -348 -7 -19 -28 -78 -47 -130 -20 -52 -41 -113 -49 -135 -7 -22 -21
+-60 -31 -85 -9 -25 -34 -92 -54 -150 -21 -58 -54 -150 -75 -205 -20 -55 -41
+-116 -47 -135 -6 -19 -13 -39 -16 -45 -8 -12 -39 -98 -52 -140 -5 -16 -20 -61
+-35 -100 -14 -38 -33 -88 -41 -110 -8 -22 -28 -79 -44 -128 -17 -48 -34 -95
+-40 -105 -5 -9 -20 -51 -34 -92 -14 -41 -42 -120 -62 -175 -31 -85 -92 -254
+-124 -345 -5 -14 -21 -56 -35 -95 -14 -38 -32 -88 -39 -110 -7 -22 -24 -69
+-38 -105 -13 -36 -30 -81 -37 -100 -7 -19 -28 -78 -47 -130 -20 -52 -41 -113
+-49 -135 -7 -22 -30 -85 -50 -140 -20 -55 -43 -118 -50 -140 -8 -22 -22 -60
+-31 -85 -9 -25 -34 -92 -54 -150 -21 -58 -54 -150 -75 -205 -20 -55 -42 -118
+-50 -140 -7 -22 -23 -65 -35 -95 -11 -30 -34 -94 -50 -143 -17 -48 -34 -95
+-40 -105 -5 -9 -21 -53 -36 -97 -45 -134 -54 -159 -63 -180 -15 -37 -49 -129
+-75 -205 -14 -41 -35 -100 -47 -130 -11 -30 -27 -73 -34 -95 -30 -87 -84 -235
+-91 -246 -3 -6 -10 -25 -15 -43 -8 -33 -35 -108 -69 -196 -12 -30 -27 -73 -35
+-95 -7 -22 -30 -85 -50 -140 -20 -55 -43 -118 -50 -140 -8 -22 -23 -65 -35
+-95 -11 -30 -34 -94 -50 -143 -17 -48 -34 -95 -40 -105 -5 -9 -21 -53 -36 -97
+-38 -112 -59 -171 -84 -235 -11 -30 -35 -95 -51 -145 -17 -49 -35 -94 -40 -99
+-5 -6 -9 -17 -9 -25 0 -9 -10 -40 -21 -71 -12 -30 -27 -71 -34 -90 -7 -19 -27
+-73 -45 -120 -17 -47 -35 -98 -40 -115 -5 -16 -22 -70 -39 -120 -18 -49 -39
+-112 -49 -140 -13 -40 -17 -85 -17 -220 0 -220 3 -229 158 -510 131 -239 99
+-202 777 -889 223 -226 524 -532 670 -680 146 -148 353 -358 460 -466 107
+-109 343 -348 524 -531 181 -184 498 -505 704 -714 207 -209 495 -501 641
+-650 147 -148 581 -589 966 -979 1426 -1446 1357 -1378 1475 -1444 61 -34 246
+-108 383 -152 222 -72 430 -56 732 55 55 21 121 43 146 50 26 7 55 18 65 23
+11 5 55 21 99 36 111 36 167 55 190 66 11 5 36 13 55 19 19 5 80 26 135 46 55
+21 120 44 145 51 25 7 70 22 100 34 114 41 287 101 330 114 25 7 90 30 145 51
+55 20 118 41 140 46 21 6 44 14 50 18 5 5 26 13 45 19 19 6 87 29 150 52 63
+22 129 45 145 49 37 10 132 43 205 71 30 12 71 26 90 32 59 17 142 46 210 73
+36 14 81 30 100 35 19 5 87 27 150 50 63 22 174 61 245 85 72 24 162 56 200
+70 39 14 84 30 101 34 33 9 116 37 149 52 30 13 105 39 145 50 19 6 44 14 55
+19 11 5 61 23 110 39 50 17 115 40 145 51 30 12 69 25 85 30 36 9 130 41 205
+70 30 12 75 28 100 35 25 7 97 32 160 55 63 23 129 46 145 50 17 5 82 27 145
+49 215 77 235 84 265 92 37 10 113 36 140 49 31 15 106 40 148 51 21 5 45 14
+55 19 9 5 73 28 142 50 69 23 134 45 145 50 11 5 61 23 110 39 50 17 115 40
+145 51 30 12 69 25 85 30 31 8 69 21 265 90 63 23 135 47 160 55 25 7 90 30
+145 51 55 20 120 43 145 50 55 16 128 41 155 54 11 5 56 20 100 35 44 14 89
+30 100 35 11 5 36 13 55 19 19 5 80 26 135 46 55 20 120 43 145 50 25 8 90 30
+145 50 55 21 120 43 145 51 96 30 237 103 310 159 106 83 176 168 244 299 25
+49 57 103 70 121 60 79 105 176 150 328 15 48 39 109 54 135 53 91 104 219
+189 477 14 44 37 108 50 143 13 34 44 124 69 200 25 75 49 146 54 157 9 19 76
+217 135 395 15 47 33 99 40 115 7 17 25 66 39 110 35 109 55 166 66 190 5 11
+13 36 19 55 5 19 28 87 51 150 22 63 47 135 54 160 8 25 30 90 51 145 20 55
+43 120 50 145 15 48 89 263 155 450 23 63 46 133 51 155 6 21 14 44 18 50 4 5
+13 28 19 50 11 40 68 204 90 258 7 16 12 35 12 44 0 8 6 29 14 46 12 29 29 76
+65 177 7 19 19 55 26 80 7 25 23 70 35 100 28 74 61 168 71 205 4 17 26 82 49
+145 23 63 45 129 50 145 5 17 28 82 50 145 23 63 46 131 51 150 6 19 14 44 19
+55 10 22 66 187 106 310 14 44 30 89 35 100 5 11 15 40 24 65 8 25 25 72 37
+105 11 33 24 74 28 90 5 17 18 55 30 85 11 30 32 91 46 135 15 44 32 94 39
+110 7 17 20 50 28 75 31 97 117 350 152 445 20 55 40 114 45 130 4 17 17 57
+28 90 12 33 29 80 37 105 9 25 20 54 25 65 5 11 15 43 23 70 8 28 45 136 82
+240 94 269 144 415 155 450 5 17 27 82 50 145 48 133 65 190 85 281 8 36 35
+127 60 202 25 75 50 171 56 214 22 152 -8 337 -74 469 -69 138 -96 167 -522
+583 -82 81 -323 315 -534 521 -211 206 -416 406 -455 444 -240 232 -550 534
+-997 971 -135 132 -398 389 -584 570 -187 182 -419 407 -515 502 -96 94 -202
+197 -235 229 -33 31 -238 231 -455 443 -217 213 -462 452 -545 531 -82 80
+-236 231 -343 335 -106 105 -242 237 -302 295 -59 58 -242 236 -407 396 -164
+160 -327 319 -363 353 -206 197 -415 281 -694 281 -68 0 -125 -2 -127 -4z
+m521 -2247 c30 -28 134 -128 230 -222 221 -217 897 -877 959 -936 25 -24 138
+-135 251 -245 113 -111 282 -275 375 -365 164 -158 337 -327 755 -736 228
+-223 444 -433 965 -940 460 -447 705 -687 970 -946 110 -108 244 -238 298
+-290 l99 -94 -5 -45 c-2 -25 -23 -97 -46 -160 -23 -63 -48 -136 -56 -162 -7
+-25 -16 -52 -20 -58 -4 -7 -11 -26 -15 -44 -5 -17 -18 -56 -30 -86 -12 -30
+-28 -75 -36 -100 -7 -25 -32 -97 -54 -160 -23 -63 -46 -133 -51 -154 -5 -22
+-13 -44 -17 -50 -9 -14 -69 -188 -86 -248 -8 -25 -17 -52 -21 -58 -4 -7 -11
+-26 -16 -44 -4 -17 -26 -83 -49 -146 -23 -63 -46 -131 -51 -150 -6 -19 -14
+-44 -19 -55 -13 -29 -40 -105 -49 -140 -4 -17 -13 -40 -19 -51 -6 -12 -16 -39
+-21 -60 -5 -22 -26 -84 -46 -139 -20 -55 -52 -145 -71 -200 -18 -55 -43 -127
+-55 -160 -11 -33 -27 -80 -34 -105 -8 -25 -30 -90 -51 -145 -20 -55 -43 -120
+-50 -145 -7 -25 -32 -97 -54 -160 -23 -63 -45 -128 -50 -145 -13 -44 -79 -237
+-89 -260 -14 -33 -47 -126 -74 -210 -14 -44 -36 -105 -47 -135 -12 -30 -26
+-71 -31 -90 -5 -19 -20 -66 -34 -105 -14 -38 -48 -135 -75 -215 -27 -80 -81
+-237 -120 -350 -39 -113 -77 -223 -85 -245 -7 -22 -18 -53 -24 -70 -5 -16 -20
+-59 -32 -95 -12 -36 -28 -79 -35 -97 -8 -17 -14 -36 -14 -42 0 -6 -6 -25 -14
+-43 -8 -18 -26 -69 -40 -113 -14 -44 -35 -105 -46 -135 -12 -30 -28 -75 -35
+-100 -8 -25 -32 -97 -55 -160 -23 -63 -46 -133 -51 -155 -6 -21 -14 -44 -18
+-50 -4 -5 -13 -28 -19 -50 -6 -22 -29 -92 -52 -155 -23 -63 -45 -128 -50 -145
+-5 -16 -27 -82 -50 -145 -23 -63 -47 -135 -54 -160 -17 -58 -44 -110 -57 -110
+-7 0 -50 37 -97 83 -47 45 -99 96 -116 112 -119 113 -548 526 -676 650 -148
+144 -507 490 -819 790 -80 77 -204 197 -276 266 -71 70 -155 150 -185 179 -30
+29 -116 111 -190 183 -74 72 -178 171 -230 221 -52 50 -183 176 -290 281 -108
+104 -299 289 -425 410 -126 121 -302 290 -390 375 -88 86 -205 198 -259 250
+-54 52 -129 124 -166 160 -36 36 -172 166 -301 290 -129 124 -299 288 -379
+366 -80 78 -180 175 -223 215 -79 74 -79 74 -74 119 2 25 14 70 26 100 12 30
+28 73 36 95 7 22 23 65 35 95 37 97 61 164 72 200 5 19 14 39 19 45 5 5 9 16
+9 25 0 8 7 28 15 43 8 15 19 42 24 60 10 35 66 189 101 277 29 76 59 158 71
+200 6 19 15 39 20 45 5 5 9 16 9 25 1 8 9 33 20 55 11 22 19 44 20 50 0 9 28
+85 51 140 12 29 39 105 51 145 5 19 14 40 18 45 4 6 13 26 18 45 13 42 43 125
+72 200 12 30 37 98 56 150 19 52 41 111 48 130 8 19 28 76 45 125 18 50 36 99
+42 110 5 11 13 34 18 50 5 17 19 55 31 85 12 30 34 91 50 135 16 44 39 105 50
+135 12 30 30 78 39 105 33 89 92 249 105 285 8 19 28 76 45 125 18 50 36 99
+41 110 31 71 50 119 50 129 0 6 6 23 14 38 8 15 17 42 21 60 4 18 14 49 22 68
+40 93 42 100 92 240 27 76 68 186 79 210 5 14 27 72 47 130 21 58 52 143 70
+190 17 47 42 114 55 150 12 36 29 79 36 97 8 17 14 34 14 38 0 4 6 21 14 38 8
+18 26 66 40 107 14 41 37 104 51 140 15 36 30 76 35 90 5 14 25 70 45 125 21
+55 44 118 52 140 7 22 20 54 28 72 8 17 15 35 15 41 0 5 19 58 41 118 40 106
+95 253 120 324 7 19 18 49 24 65 7 17 23 57 35 90 12 33 27 76 35 95 7 19 22
+62 34 95 37 99 64 155 75 155 6 0 36 -23 66 -51z m-1840 -2 c0 -12 -14 -60
+-31 -107 -17 -47 -34 -96 -39 -110 -4 -14 -22 -59 -39 -100 -17 -41 -31 -82
+-31 -90 -1 -8 -9 -33 -20 -55 -11 -22 -19 -47 -20 -55 0 -9 -4 -20 -9 -25 -5
+-6 -14 -28 -21 -50 -7 -22 -16 -44 -20 -50 -4 -5 -11 -26 -15 -45 -4 -19 -14
+-48 -21 -65 -22 -52 -80 -206 -119 -315 -20 -58 -42 -118 -50 -135 -7 -16 -30
+-77 -50 -135 -45 -127 -74 -205 -90 -245 -7 -16 -24 -64 -39 -105 -23 -68 -38
+-109 -83 -225 -8 -22 -30 -80 -48 -130 -19 -49 -43 -115 -55 -145 -11 -30 -35
+-95 -51 -145 -17 -49 -35 -94 -40 -99 -5 -6 -9 -17 -9 -25 0 -9 -7 -29 -15
+-44 -8 -15 -19 -42 -24 -60 -5 -18 -25 -75 -44 -127 -80 -217 -106 -287 -118
+-320 -7 -19 -28 -75 -46 -125 -35 -91 -42 -110 -83 -220 -12 -33 -28 -76 -35
+-95 -7 -19 -23 -62 -35 -95 -12 -33 -29 -75 -36 -93 -8 -18 -14 -38 -14 -45 0
+-7 -7 -25 -15 -40 -8 -15 -19 -42 -24 -60 -5 -18 -19 -57 -31 -87 -12 -30 -27
+-73 -35 -95 -7 -22 -23 -65 -35 -95 -12 -30 -27 -73 -35 -95 -7 -22 -23 -65
+-35 -95 -12 -30 -27 -73 -35 -95 -7 -22 -23 -65 -35 -95 -12 -30 -25 -66 -30
+-80 -5 -14 -21 -56 -35 -95 -15 -38 -31 -84 -36 -102 -5 -18 -16 -45 -24 -60
+-8 -15 -15 -33 -15 -40 0 -7 -6 -27 -14 -45 -7 -18 -24 -60 -36 -93 -12 -33
+-28 -76 -35 -95 -7 -19 -23 -62 -35 -95 -22 -60 -29 -77 -71 -190 -12 -33 -25
+-69 -30 -80 -12 -29 -39 -105 -51 -145 -5 -19 -14 -39 -18 -45 -4 -5 -13 -26
+-18 -45 -6 -19 -20 -60 -32 -90 -31 -79 -89 -238 -105 -285 -27 -81 -54 -134
+-78 -149 -32 -22 -189 -84 -277 -111 -25 -8 -63 -21 -85 -29 -93 -35 -185 -68
+-260 -93 -44 -14 -84 -29 -90 -33 -5 -5 -26 -13 -45 -18 -19 -6 -87 -29 -150
+-52 -63 -23 -128 -45 -145 -50 -16 -4 -59 -20 -95 -35 -36 -14 -125 -46 -198
+-70 -73 -25 -140 -49 -150 -55 -9 -5 -53 -21 -97 -35 -101 -33 -240 -83 -282
+-101 -17 -8 -36 -14 -42 -14 -6 0 -50 -15 -99 -34 -48 -18 -96 -36 -107 -39
+-11 -3 -51 -18 -90 -32 -38 -14 -108 -39 -155 -55 -47 -16 -110 -38 -140 -50
+-30 -12 -93 -34 -140 -50 -163 -56 -175 -61 -195 -70 -25 -12 -96 -37 -155
+-55 -44 -13 -69 -22 -180 -65 -30 -12 -93 -34 -140 -50 -47 -16 -116 -41 -155
+-55 -38 -14 -88 -32 -110 -40 -22 -7 -85 -29 -140 -49 -55 -20 -138 -50 -185
+-66 -47 -16 -130 -46 -185 -66 -55 -20 -163 -58 -240 -85 -77 -27 -149 -53
+-160 -58 -11 -5 -76 -29 -145 -52 -69 -23 -134 -46 -145 -52 -11 -5 -33 -14
+-50 -18 -16 -4 -61 -20 -100 -34 -38 -15 -83 -30 -100 -36 -16 -5 -39 -13 -50
+-18 -30 -13 -112 -42 -285 -101 -47 -16 -110 -39 -140 -50 -98 -38 -254 -91
+-281 -97 -15 -3 -29 -1 -32 4 -7 10 13 76 64 218 17 50 40 113 50 140 9 28 34
+95 54 150 20 55 41 114 47 130 5 17 14 39 19 50 8 19 25 66 54 150 7 22 23 65
+35 95 11 30 34 93 50 140 16 47 39 110 50 140 25 64 46 123 84 235 15 44 31
+88 36 97 6 10 23 57 40 105 16 49 36 106 44 128 8 22 27 72 41 110 14 39 29
+79 32 90 5 21 40 115 54 150 9 20 29 78 53 150 8 22 31 85 51 140 20 55 43
+118 50 140 8 22 23 65 35 95 12 30 27 73 35 95 25 75 46 130 55 150 5 11 21
+56 36 100 51 150 55 160 64 180 12 26 39 101 51 145 6 19 14 44 19 55 20 43
+43 104 70 185 50 145 60 174 75 207 8 17 15 38 15 46 0 9 4 18 9 22 5 3 12 20
+16 38 6 31 34 109 61 174 8 17 14 37 14 45 0 8 4 18 9 23 5 6 16 33 24 60 9
+28 25 75 37 105 12 30 26 69 31 87 5 18 16 45 24 60 8 15 15 36 15 45 0 10 6
+32 14 50 8 18 25 60 37 93 12 33 25 69 30 80 4 11 20 56 34 100 14 44 33 92
+40 107 8 14 15 35 15 45 0 10 6 27 13 38 8 11 19 38 25 60 5 22 20 65 32 95
+12 30 27 73 35 95 17 49 42 118 90 250 20 55 41 115 46 133 25 81 49 103 184
+162 28 12 68 30 91 41 23 10 46 19 52 19 6 0 23 6 39 14 15 8 53 24 83 37 30
+12 73 30 95 39 22 10 58 25 80 34 22 10 54 24 70 31 17 8 53 23 80 35 28 12
+59 26 70 31 11 4 72 29 135 55 63 25 140 57 170 71 100 46 134 61 200 86 113
+44 218 89 321 136 25 12 49 21 53 21 3 0 34 13 68 29 35 16 106 45 158 66 52
+21 115 46 140 57 25 11 59 26 75 33 17 7 53 23 80 36 28 12 64 27 80 34 17 7
+46 19 65 28 19 8 64 27 100 41 60 23 126 51 225 95 82 37 165 72 251 106 49
+20 98 40 109 45 11 5 38 16 60 26 89 37 131 56 160 69 17 8 59 26 95 40 36 14
+74 30 85 35 11 5 49 21 85 35 62 25 96 39 168 71 17 8 47 20 65 28 71 32 105
+46 167 71 36 14 74 30 85 35 11 5 49 21 85 36 35 14 92 38 125 54 93 42 172
+75 273 115 51 19 101 39 110 44 9 4 33 15 52 24 19 8 58 25 85 38 59 26 93 40
+160 67 58 23 212 87 270 112 22 10 58 25 80 34 22 10 56 24 75 33 66 30 95 42
+150 64 63 25 460 193 505 215 17 7 42 14 58 14 21 0 27 -5 27 -23z m-1673
+-7719 c28 -21 276 -260 737 -709 105 -102 236 -228 291 -280 110 -104 276
+-264 549 -530 99 -96 187 -181 196 -189 42 -37 210 -198 365 -350 94 -91 287
+-278 430 -415 143 -137 330 -317 415 -400 252 -245 351 -340 415 -400 33 -32
+134 -130 225 -219 91 -88 208 -201 260 -251 52 -49 172 -164 265 -255 94 -91
+274 -264 400 -385 357 -342 565 -548 565 -561 0 -19 -34 -42 -74 -50 -22 -4
+-51 -13 -65 -20 -14 -8 -32 -14 -39 -14 -8 0 -28 -7 -45 -15 -36 -16 -106 -42
+-152 -55 -16 -5 -82 -27 -145 -50 -209 -74 -235 -83 -265 -90 -16 -5 -73 -24
+-125 -43 -124 -46 -141 -52 -230 -82 -41 -13 -100 -34 -130 -46 -30 -11 -73
+-26 -95 -31 -22 -6 -45 -15 -50 -19 -6 -4 -29 -12 -50 -18 -22 -5 -83 -25
+-135 -44 -113 -42 -129 -48 -245 -87 -135 -46 -242 -83 -420 -146 -88 -31
+-180 -62 -205 -69 -51 -16 -125 -42 -155 -54 -32 -13 -124 -46 -200 -70 -38
+-12 -79 -27 -90 -32 -32 -14 -107 -40 -150 -51 -22 -6 -45 -15 -50 -19 -6 -4
+-29 -12 -50 -18 -34 -8 -197 -64 -245 -84 -8 -4 -55 -20 -105 -36 -49 -17
+-142 -49 -205 -71 -63 -23 -128 -45 -145 -50 -16 -5 -82 -27 -145 -50 -63 -23
+-135 -47 -160 -55 -25 -7 -90 -30 -145 -51 -55 -20 -120 -43 -145 -50 -25 -7
+-90 -29 -145 -49 -55 -20 -145 -52 -200 -70 -127 -44 -282 -99 -318 -113 -16
+-7 -34 -12 -40 -12 -7 0 -55 -16 -107 -36 -52 -19 -147 -53 -210 -74 -63 -22
+-167 -58 -230 -80 -63 -23 -129 -45 -146 -49 -33 -9 -115 -37 -149 -52 -29
+-12 -103 -38 -155 -54 -25 -7 -90 -30 -145 -50 -166 -61 -244 -85 -273 -85
+-27 0 -70 42 -911 898 -263 268 -1454 1476 -1836 1861 -192 195 -384 388 -425
+431 -41 42 -381 387 -755 766 -1027 1039 -994 1005 -985 1029 4 11 20 24 36
+29 16 5 58 20 94 34 36 14 81 29 100 34 19 5 73 24 120 42 47 18 135 50 195
+70 61 21 124 44 142 52 17 8 35 14 39 14 5 0 31 9 59 20 27 10 97 36 155 56
+58 19 114 40 125 45 11 5 34 13 50 18 17 5 82 28 145 51 63 23 129 46 145 51
+17 5 39 13 50 18 11 6 61 24 110 40 50 16 115 39 145 51 30 11 93 34 140 50
+47 16 110 38 140 50 30 12 93 34 140 50 47 16 117 41 155 55 39 15 81 30 95
+35 14 5 77 27 140 50 63 23 131 46 150 52 19 5 40 13 45 18 6 4 46 19 90 33
+44 14 112 38 150 52 39 14 86 31 105 37 19 5 40 13 45 18 6 4 28 12 50 18 40
+11 58 17 250 87 55 20 140 50 190 66 49 17 94 34 100 38 5 5 21 11 35 14 14 3
+57 17 95 31 39 15 104 38 145 52 41 14 89 32 107 40 17 8 35 14 41 14 5 0 54
+16 108 36 55 20 124 45 154 57 30 11 64 24 75 28 11 5 56 20 100 34 44 14 89
+30 100 35 20 9 32 14 195 70 47 16 110 39 140 50 65 25 122 46 245 88 50 17
+115 41 145 52 30 12 75 28 100 35 25 7 70 23 100 35 30 12 73 27 95 35 22 7
+85 30 140 50 55 20 118 43 140 50 35 12 160 57 320 114 67 24 67 24 102 -1z"/>
+</g>
+</svg>
+<a title="We are created to share nature and love.
+" href="/">Yulei's Sandbox</a></div><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/archive.html">Archive</a></li><li class="navigation__item"><a href="/plog.html">Plog</a></li><li class="navigation__item"><a href="/photos.html">Photos</a></li><li class="navigation__item"><a href="/about.html">About</a></li><li class="navigation__item"><a href="https://github.com/Yuleii/Yuleii.github.io">GitHub</a></li><li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div>
+</aside></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet -->
+<article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>Introduction to Data Visualization with Matplotlib</h1></header><span class="split-space">&nbsp;</span>
+          <a class="edit-on-github"
+            title="Edit on Github"
+            href="https://github.com/Yuleii/Yuleii.github.io/tree/master/_posts/2020-07-02-introduction-to-data-visualization-with-matplotlib.md">
+            <i class="far fa-edit"></i></a></div><meta itemprop="headline" content="Introduction to Data Visualization with Matplotlib"><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Python">Python</a>
+            </li><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Matplotlib">Matplotlib</a>
+            </li><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=DataAnalysis">DataAnalysis</a>
+            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>Jul 02, 2020</span>
+            </li></ul></div><meta itemprop="author" content="Yulei"/><meta itemprop="datePublished" content="2020-07-02T00:00:00+00:00">
+    <meta itemprop="keywords" content="Python,Matplotlib,DataAnalysis"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+
+<!-- end custom article top snippet -->
+<div class="article__content" itemprop="articleBody"><p>Base on DataCamp.</p>
+
+<!--more-->
+
+<p><a href="https://datacamp-community-prod.s3.amazonaws.com/28b8210c-60cc-4f13-b0b4-5b4f2ad4790b">Matplotlib Cheat Sheet</a></p>
+
+<h2 id="introduction-to-matplotlib">Introduction to Matplotlib</h2>
+
+<h3 id="introduction-to-data-visualization-with-matplotlib">Introduction to data visualization with Matplotlib</h3>
+
+<h4 id="using-the-matplotlibpyplot-interface">Using the matplotlib.pyplot interface</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Import the matplotlib.pyplot submodule and name it plt
+</span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Create a Figure and an Axes with plt.subplots
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Call the show function to show the result
+</span><span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># an empty set of axes
+</span></code></pre></div></div>
+
+<h4 id="adding-data-to-an-axes-object">Adding data to an Axes object</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Import the matplotlib.pyplot submodule and name it plt
+</span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Create a Figure and an Axes with plt.subplots
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Plot MLY-PRCP-NORMAL from seattle_weather against the MONTH
+</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MLY-PRCP-NORMAL'</span><span class="p">])</span>
+
+<span class="c1"># Plot MLY-PRCP-NORMAL from austin_weather against MONTH
+</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">'MLY-PRCP-NORMAL'</span><span class="p">])</span>
+
+<span class="c1"># Call the show function
+</span><span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="customizing-your-plots">Customizing your plots</h3>
+
+<h4 id="customizing-data-appearance">Customizing data appearance</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot Seattle data, setting data appearance
+</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MLY-PRCP-NORMAL"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">'b'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">'--'</span><span class="p">)</span> <span class="c1"># circle markers ('o')
+</span>
+<span class="c1"># Plot Austin data, setting data appearance
+</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">"MLY-PRCP-NORMAL"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'v'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">'--'</span><span class="p">)</span> <span class="c1"># triangles pointing downwards ('v')
+</span>
+<span class="c1"># Call show to display the resulting plot
+</span><span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="customizing-axis-labels-and-adding-titles">Customizing axis labels and adding titles</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MLY-PRCP-NORMAL"</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">"MLY-PRCP-NORMAL"</span><span class="p">])</span>
+
+<span class="c1"># Customize the x-axis label
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Time (months)"</span><span class="p">)</span>
+
+<span class="c1"># Customize the y-axis label
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Precipitation (inches)"</span><span class="p">)</span>
+
+<span class="c1"># Add the title
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Weather patterns in Austin and Seattle"</span><span class="p">)</span>
+
+<span class="c1"># Display the figure
+</span><span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="small-multiples">Small multiples</h3>
+
+<h4 id="creating-small-multiples-with-pltsubplots">Creating small multiples with plt.subplots</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a Figure and an array of subplots with 2 rows and 2 columns
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Addressing the top left Axes as index 0, 0, plot month and Seattle precipitation
+</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MLY-PRCP-NORMAL'</span><span class="p">])</span>
+
+<span class="c1"># In the top right (index 0,1), plot month and Seattle temperatures
+</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MLY-TAVG-NORMAL'</span><span class="p">])</span>
+
+<span class="c1"># In the bottom left (1, 0) plot month and Austin precipitations
+</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">'MLY-PRCP-NORMAL'</span><span class="p">])</span>
+
+<span class="c1"># In the bottom right (1, 1) plot month and Austin temperatures
+</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">'MLY-TAVG-NORMAL'</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="small-multiples-with-shared-y-axis">Small multiples with shared y axis</h4>
+
+<p>This can be configured by setting the <code class="language-plaintext highlighter-rouge">sharey</code> key-word to <code class="language-plaintext highlighter-rouge">True</code>.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a figure and an array of axes: 2 rows, 1 column with shared y axis
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># Plot Seattle precipitation data in the top axes. Plot Seattle's "MLY-PRCP-NORMAL" in a solid blue line in the top Axes. Add Seattle's "MLY-PRCP-25PCTL" and "MLY-PRCP-75PCTL" in dashed blue lines to the top Axes.
+</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MLY-PRCP-NORMAL'</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'b'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MLY-PRCP-25PCTL"</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'b'</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s">'--'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">'MLY-PRCP-75PCTL'</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'b'</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s">'--'</span><span class="p">)</span>
+
+<span class="c1"># Plot Austin precipitation data in the bottom axes. Plot Austin's "MLY-PRCP-NORMAL" in a solid red line in the top Axes and the "MLY-PRCP-25PCTL" and "MLY-PRCP-75PCTL" in dashed red lines.
+</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">'MLY-PRCP-NORMAL'</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'r'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">'MLY-PRCP-25PCTL'</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'r'</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s">'--'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">'MONTH'</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">'MLY-PRCP-75PCTL'</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'r'</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s">'--'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="plotting-time-series">Plotting time-series</h2>
+
+<h3 id="plotting-time-series-data">Plotting time-series data</h3>
+
+<h4 id="read-data-with-a-time-index">Read data with a time index</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Import pandas as pd
+</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="c1"># Read the data from file using read_csv
+</span><span class="n">climate_change</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'climate_change.csv'</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s">"date"</span><span class="p">)</span> <span class="c1"># Use the parse_dates key-word argument to parse the "date" column as dates. Use the index_col key-word argument to set the "date" column as the index.
+</span></code></pre></div></div>
+
+<h4 id="plot-time-series-data">Plot time-series data</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Add the time-series for "relative_temp" to the plot. Use the DataFrame index for the x value and the "relative_temp" column for the y values.
+</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">climate_change</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">"relative_temp"</span><span class="p">])</span>
+
+<span class="c1"># Set the x-axis label to 'Time'.
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Time'</span><span class="p">)</span>
+
+<span class="c1"># Set the y-axis label to 'Relative temperature (Celsius)'.
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Relative temperature (Celsius)'</span><span class="p">)</span>
+
+<span class="c1"># Show the figure
+</span><span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="using-a-time-index-to-zoom-in">Using a time index to zoom in</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Use plt.subplots to create fig and ax
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Create variable seventies with data from "1970-01-01" to "1979-12-31"
+</span><span class="n">seventies</span> <span class="o">=</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">"1970-01-01"</span><span class="p">:</span><span class="s">"1979-12-31"</span><span class="p">]</span>
+
+<span class="c1"># Add the time-series for "co2" data from seventies to the plot
+</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">seventies</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">seventies</span><span class="p">[</span><span class="s">"co2"</span><span class="p">])</span>
+
+<span class="c1"># Show the figure
+</span><span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="plotting-time-series-with-different-variables">Plotting time-series with different variables</h3>
+
+<p>` .twinx()`</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Initalize a Figure and Axes
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Plot the CO2 variable in blue
+</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">climate_change</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">"co2"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">'b'</span><span class="p">)</span>
+
+<span class="c1"># Create a twin Axes that shares the x-axis
+</span><span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="p">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="c1"># Plot the relative temperature in red
+</span><span class="n">ax2</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">climate_change</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">"relative_temp"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="defining-a-function-that-plots-time-series-data">Defining a function that plots time-series data</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Define a function called plot_timeseries that takes as input an Axes object (axes), data (x,y), a string with the name of a color and strings for x- and y-axis labels.
+</span><span class="k">def</span> <span class="nf">plot_timeseries</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">):</span>
+
+  <span class="c1"># Plot the inputs x,y in the provided color
+</span>  <span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+  <span class="c1"># Set the x-axis label
+</span>  <span class="n">axes</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+
+  <span class="c1"># Set the y-axis label
+</span>  <span class="n">axes</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+  <span class="c1"># Set the colors tick params for y-axis
+</span>  <span class="n">axes</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="s">'y'</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="using-a-plotting-function">Using a plotting function</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Plot the CO2 levels time-series in blue
+</span><span class="n">plot_timeseries</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">"co2"</span><span class="p">],</span> <span class="s">"blue"</span><span class="p">,</span> <span class="s">"Time (years)"</span><span class="p">,</span> <span class="s">"CO2 levels"</span><span class="p">)</span>
+
+<span class="c1"># Create a twin Axes object that shares the x-axis
+</span><span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="p">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="c1"># Plot the relative temperature data in red
+</span><span class="n">plot_timeseries</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">"relative_temp"</span><span class="p">],</span> <span class="s">"red"</span><span class="p">,</span> <span class="s">"Time (years)"</span><span class="p">,</span> <span class="s">"Relative temperature (Celsius)"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="annotating-time-series-data">Annotating time-series data</h3>
+
+<h4 id="annotating-a-plot-of-time-series-data">Annotating a plot of time-series data</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Plot the relative temperature data
+</span><span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">climate_change</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">'relative_temp'</span><span class="p">])</span>
+
+<span class="c1"># Use the annotate method to add the text '&gt;1 degree' in the location (pd.Timestamp('2015-10-06'), 1).
+</span><span class="n">ax</span><span class="p">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">'&gt;1 degree'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">'2015-10-06'</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="plotting-time-series-putting-it-all-together">Plotting time-series: putting it all together</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Use the plot_timeseries function to plot CO2 levels against time. Set xlabel to "Time (years)" ylabel to "CO2 levels" and color to 'blue'.
+</span><span class="n">plot_timeseries</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">'co2'</span><span class="p">],</span> <span class="s">'blue'</span><span class="p">,</span> <span class="s">"Time (years)"</span><span class="p">,</span> <span class="s">"CO2 levels"</span><span class="p">)</span>
+
+<span class="c1"># Create an Axes object that shares the x-axis
+</span><span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="p">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="c1"># In ax2, plot temperature against time, setting the color ylabel to "Relative temp (Celsius)" and color to 'red'.
+</span><span class="n">plot_timeseries</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">'relative_temp'</span><span class="p">],</span> <span class="s">'red'</span><span class="p">,</span> <span class="s">"Time (years)"</span><span class="p">,</span> <span class="s">"Relative temp (Celsius)"</span><span class="p">)</span>
+
+<span class="c1"># Annotate the data using the ax2.annotate method. Place the text "&gt;1 degree" in x=pd.Timestamp('2008-10-06'), y=-0.2 pointing with a gray thin arrow to x=pd.Timestamp('2015-10-06'), y = 1.
+</span><span class="n">ax2</span><span class="p">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">"&gt;1 degree"</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">'2015-10-06'</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">pd</span><span class="p">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s">'2008-10-06'</span><span class="p">),</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s">"arrowstyle"</span><span class="p">:</span><span class="s">"-&gt;"</span><span class="p">,</span> <span class="s">"color"</span><span class="p">:</span><span class="s">"gray"</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="quantitative-comparisons-and-statistical-visualizations">Quantitative comparisons and statistical visualizations</h2>
+
+<h3 id="bar-charts">bar-charts</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ax.bar()</code></p>
+
+<h4 id="creating-bar-chart">Creating bar chart</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Plot a bar-chart of gold medals as a function of country
+</span><span class="n">ax</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">medals</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">medals</span><span class="p">[</span><span class="s">"Gold"</span><span class="p">])</span>
+
+<span class="c1"># Set the x-axis tick labels to the country names
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">medals</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span> <span class="c1"># rotate the x-axis tick labels by 90 degrees
+</span>
+<span class="c1"># Set the y-axis label
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Number of medals"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="stacked-bar-chart">Stacked bar chart</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Add bars for "Gold" with the label "Gold"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">medals</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">medals</span><span class="p">[</span><span class="s">"Gold"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">"Gold"</span><span class="p">)</span>
+
+<span class="c1"># Stack bars for "Silver" on top with label "Silver"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">medals</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">medals</span><span class="p">[</span><span class="s">"Silver"</span><span class="p">],</span> <span class="n">bottom</span><span class="o">=</span><span class="n">medals</span><span class="p">[</span><span class="s">"Gold"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">"Silver"</span><span class="p">)</span> <span class="c1"># the bottom of the bars will be on top of the gold medal bars
+</span>
+<span class="c1"># Stack bars for "Bronze" on top of that with label "Bronze"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">medals</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">medals</span><span class="p">[</span><span class="s">"Bronze"</span><span class="p">],</span> <span class="n">bottom</span><span class="o">=</span><span class="n">medals</span><span class="p">[</span><span class="s">"Gold"</span><span class="p">]</span><span class="o">+</span><span class="n">medals</span><span class="p">[</span><span class="s">"Silver"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">"Bronze"</span><span class="p">)</span>
+
+<span class="c1"># Display the legend
+</span><span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="histograms">histograms</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ax.hist()</code></p>
+
+<h4 id="creating-histograms">Creating histograms</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1"># Plot a histogram of "Weight" for mens_rowing
+</span><span class="n">ax</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">mens_rowing</span><span class="p">[</span><span class="s">"Weight"</span><span class="p">])</span>
+
+<span class="c1"># Compare to histogram of "Weight" for mens_gymnastics
+</span><span class="n">ax</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span> <span class="n">mens_gymnastics</span><span class="p">[</span><span class="s">"Weight"</span><span class="p">])</span>
+
+<span class="c1"># Set the x-axis label to "Weight (kg)"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Weight (kg)"</span><span class="p">)</span>
+
+<span class="c1"># Set the y-axis label to "# of observations"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"# of observations"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="step-histogram">“Step” histogram</h4>
+
+<p><code class="language-plaintext highlighter-rouge">ax.hist()</code></p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Use the hist method to display a histogram of the "Weight" column from the mens_rowing DataFrame, label this as "Rowing"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">mens_rowing</span><span class="p">[</span><span class="s">"Weight"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">"Rowing"</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s">'step'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># use 'step' type and set the number of bins to use to 5.
+</span>
+<span class="c1"># Use hist to display a histogram of the "Weight" column from the mens_gymnastics DataFrame, and label this as "Gymnastics"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">mens_gymnastics</span><span class="p">[</span><span class="s">"Weight"</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">"Gymnastics"</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s">'step'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Weight (kg)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"# of observations"</span><span class="p">)</span>
+
+<span class="c1"># Add the legend and show the Figure
+</span><span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="statistical-plotting">Statistical plotting</h3>
+
+<h4 id="adding-error-bars-to-a-bar-chart">Adding error-bars to a bar chart</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Add a bar with size equal to the mean of the "Height" column in the mens_rowing DataFrame and an error-bar of its standard deviation
+</span><span class="n">ax</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="s">"Rowing"</span><span class="p">,</span> <span class="n">mens_rowing</span><span class="p">[</span><span class="s">"Height"</span><span class="p">].</span><span class="n">mean</span><span class="p">(),</span> <span class="n">yerr</span><span class="o">=</span><span class="n">mens_rowing</span><span class="p">[</span><span class="s">"Height"</span><span class="p">].</span><span class="n">std</span><span class="p">())</span>
+
+<span class="c1"># Add another bar for the mean of the "Height" column in mens_gymnastics with an error-bar of its standard deviation.
+</span><span class="n">ax</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="s">"Gymnastics"</span><span class="p">,</span> <span class="n">mens_gymnastics</span><span class="p">[</span><span class="s">"Height"</span><span class="p">].</span><span class="n">mean</span><span class="p">(),</span> <span class="n">yerr</span><span class="o">=</span><span class="n">mens_gymnastics</span><span class="p">[</span><span class="s">"Height"</span><span class="p">].</span><span class="n">std</span><span class="p">())</span>
+
+<span class="c1"># Label the y-axis
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Height (cm)"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="adding-error-bars-to-a-plot">Adding error-bars to a plot</h4>
+
+<p><code class="language-plaintext highlighter-rouge">ax.errorbar()</code></p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Add Seattle temperature data in each month with error bars
+</span><span class="n">ax</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MLY-TAVG-NORMAL"</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MLY-TAVG-STDDEV"</span><span class="p">])</span>
+
+<span class="c1"># Add Austin temperature data in each month with error bars
+</span><span class="n">ax</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">"MLY-TAVG-NORMAL"</span><span class="p">],</span> <span class="n">yerr</span><span class="o">=</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">"MLY-TAVG-STDDEV"</span><span class="p">])</span>
+
+<span class="c1"># Set the y-axis label
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Temperature (Fahrenheit)"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="creating-boxplots">Creating boxplots</h4>
+
+<p><code class="language-plaintext highlighter-rouge">ax.boxplot()</code></p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Create a boxplot that contains the "Height" column for mens_rowing on the left and mens_gymnastics on the right.
+</span><span class="n">ax</span><span class="p">.</span><span class="n">boxplot</span><span class="p">([</span><span class="n">mens_rowing</span><span class="p">[</span><span class="s">"Height"</span><span class="p">],</span> <span class="n">mens_gymnastics</span><span class="p">[</span><span class="s">"Height"</span><span class="p">]])</span>
+
+<span class="c1"># Add x-axis tick labels:
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s">"Rowing"</span><span class="p">,</span> <span class="s">"Gymnastics"</span><span class="p">])</span>
+
+<span class="c1"># Add a y-axis label
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Height (cm)"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="quantitative-comparisons-scatter-plots">Quantitative comparisons: scatter plots</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ax.scatter()</code></p>
+
+<h4 id="simple-scatter-plot">Simple scatter plot</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Add data: "co2" on x-axis, "relative_temp" on y-axis
+</span><span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">climate_change</span><span class="p">[</span><span class="s">"co2"</span><span class="p">],</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">"relative_temp"</span><span class="p">])</span>
+
+<span class="c1"># Set the x-axis label to "CO2 (ppm)"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"CO2 (ppm)"</span><span class="p">)</span>
+
+<span class="c1"># Set the y-axis label to "Relative temperature (C)"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Relative temperature (C)"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="encoding-time-by-color">Encoding time by color</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Add data: "co2", "relative_temp" as x-y, index as color
+</span><span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">climate_change</span><span class="p">[</span><span class="s">"co2"</span><span class="p">],</span> <span class="n">climate_change</span><span class="p">[</span><span class="s">"relative_temp"</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">climate_change</span><span class="p">.</span><span class="n">index</span><span class="p">)</span> <span class="c1"># Use the c key-word argument to pass in the index of the DataFrame as input to color each point according to its date.
+</span>
+<span class="c1"># Set the x-axis label to "CO2 (ppm)"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"CO2 (ppm)"</span><span class="p">)</span>
+
+<span class="c1"># Set the y-axis label to "Relative temperature (C)"
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Relative temperature (C)"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="sharing-visualizations-with-others">Sharing visualizations with others</h2>
+
+<h3 id="preparing-your-figures-to-share-with-others">Preparing your figures to share with others</h3>
+
+<h4 id="switching-between-styles">Switching between styles</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Use the "ggplot" style and create new Figure/Axes
+</span><span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'ggplot'</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">seattle_weather</span><span class="p">[</span><span class="s">"MLY-TAVG-NORMAL"</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Use the "Solarize_Light2" style and create new Figure/Axes
+</span><span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'Solarize_Light2'</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">austin_weather</span><span class="p">[</span><span class="s">"MONTH"</span><span class="p">],</span> <span class="n">austin_weather</span><span class="p">[</span><span class="s">"MLY-TAVG-NORMAL"</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="saving-your-visualizations">Saving your visualizations</h3>
+
+<h4 id="saving-a-file-several-times">Saving a file several times</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Show the figure
+</span><span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Save as a PNG file
+</span><span class="n">fig</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'my_figure.png'</span><span class="p">)</span>
+
+<span class="c1"># Save as a PNG file with 300 dpi
+</span><span class="n">fig</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'my_figure_300dpi.png'</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="save-a-figure-with-different-sizes">Save a figure with different sizes</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set the figure size as width of 3 inches and height of 5 inches and save it as 'figure_3_5.png' with default resolution.
+</span><span class="n">fig</span><span class="p">.</span><span class="n">set_size_inches</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'figure_3_5.png'</span><span class="p">)</span>
+
+<span class="c1"># Set the figure size to width of 5 inches and height of 3 inches and save it as 'figure_5_3.png' with default settings.
+</span><span class="n">fig</span><span class="p">.</span><span class="n">set_size_inches</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'figure_5_3.png'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="automating-figures-from-data">Automating figures from data</h3>
+
+<h4 id="unique-values-of-a-column">Unique values of a column</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a variable called sports_column that holds the data from the "Sport" column of the DataFrame object.
+</span><span class="n">sports_column</span> <span class="o">=</span> <span class="n">summer_2016_medals</span><span class="p">[</span><span class="s">"Sport"</span><span class="p">]</span>
+
+<span class="c1"># Use the unique method of this variable to find all the unique different sports that are present in this data, and assign these values into a new variable called sports
+</span><span class="n">sports</span> <span class="o">=</span> <span class="n">sports_column</span><span class="p">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="c1"># Print out the unique sports values
+</span><span class="k">print</span><span class="p">(</span><span class="n">sports</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[</span><span class="s">'Rowing'</span> <span class="s">'Taekwondo'</span> <span class="s">'Handball'</span> <span class="s">'Wrestling'</span> <span class="s">'Gymnastics'</span> <span class="s">'Swimming'</span>
+ <span class="s">'Basketball'</span> <span class="s">'Boxing'</span> <span class="s">'Volleyball'</span> <span class="s">'Athletics'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h4 id="automate-your-visualization">Automate your visualization</h4>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Loop over the different sports branches. Iterate over the values of sports setting sport as your loop variable.
+</span><span class="k">for</span> <span class="n">sport</span> <span class="ow">in</span> <span class="n">sports</span><span class="p">:</span>
+  <span class="c1"># Extract the rows only for this sport. In each iteration, extract the rows where the "Sport" column is equal to sport.
+</span>  <span class="n">sport_df</span> <span class="o">=</span> <span class="n">summer_2016_medals</span><span class="p">[</span><span class="n">summer_2016_medals</span><span class="p">[</span><span class="s">"Sport"</span><span class="p">]</span><span class="o">==</span><span class="n">sport</span><span class="p">]</span>
+  <span class="c1"># Add a bar for the "Weight" mean with std y error bar
+</span>  <span class="n">ax</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">sport</span><span class="p">,</span> <span class="n">sport_df</span><span class="p">[</span><span class="s">"Weight"</span><span class="p">].</span><span class="n">mean</span><span class="p">(),</span> <span class="n">yerr</span><span class="o">=</span><span class="n">sport_df</span><span class="p">[</span><span class="s">"Weight"</span><span class="p">].</span><span class="n">std</span><span class="p">())</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Weight"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">sports</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="c1"># Save the figure to file
+</span><span class="n">fig</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">"sports_weights.png"</span><span class="p">)</span>
+</code></pre></div></div>
+</div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><span>Last updated
+      <time itemprop="dateModified" datetime="2020-07-03T00:00:00+00:00">Jul 03, 2020</time>
+    </span><!-- start custom article footer snippet -->
+
+<!-- end custom article footer snippet -->
+<div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">Subscribe</a></div>
+</div><div class="article__license"><div class="license">
+    <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer>
+<div class="article__section-navigator clearfix"><div class="previous"><span>PREVIOUS</span><a href="/2020/06/30/merging-dataframes-with-pandas.html">Merging DataFrames with pandas</a></div><div class="next"><span>NEXT</span><a href="/2020/07/03/add-image-in-blog.html">在Jekyll博客中插入图片</a></div></div></div>
+
+</div>
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
+
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
+      });
+      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
+    });
+  });
+})();
+</script>
+</div><section class="page__comments d-print-none"><div id="disqus_thread"></div>
+  <script>
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  var disqus_config = function () {
+    this.page.url = 'https://yuleii.github.io/2020/07/02/introduction-to-data-visualization-with-matplotlib.html';
+    this.page.identifier = '20200702';
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-yuleii-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet -->
+</div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yulei"><meta itemprop="url" content="/"><meta itemprop="description" content="ABCDEFGHIDNOT'KNOWWHATI'AMDOING"><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><li title="Send me an Email.">
+      <a class="button button--circle mail-button" itemprop="email" href="mailto:liyulei2018@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+      </a><li title="Follow me on Github.">
+        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/Yuleii" target="_blank">
+          <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+        </a>
+      </li></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Yulei's Sandbox 2020,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer>
+</div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"><script>
+(function () {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    // search panel
+    var search = (window.search || (window.search = {}));
+    var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
+      true : window.useDefaultSearchBox ;
+
+    var $searchModal = $('.js-page-search-modal');
+    var $searchToggle = $('.js-search-toggle');
+    var searchModal = $searchModal.modal({ onChange: handleModalChange, hideWhenWindowScroll: true });
+    var modalVisible = false;
+    search.searchModal = searchModal;
+
+    var $searchBox = null;
+    var $searchInput = null;
+    var $searchClear = null;
+
+    function getModalVisible() {
+      return modalVisible;
+    }
+    search.getModalVisible = getModalVisible;
+
+    function handleModalChange(visible) {
+      modalVisible = visible;
+      if (visible) {
+        search.onShow && search.onShow();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+      } else {
+        search.onShow && search.onHide();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        setTimeout(function() {
+          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          search.clear && search.clear();
+          window.pageAsideAffix && window.pageAsideAffix.refresh();
+        }, 400);
+      }
+    }
+
+    $searchToggle.on('click', function() {
+      modalVisible ? searchModal.hide() : searchModal.show();
+    });
+    // Char Code: 83  S, 191 /
+    $(window).on('keyup', function(e) {
+      if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
+        modalVisible || searchModal.show();
+      }
+    });
+
+    if (useDefaultSearchBox) {
+      $searchBox = $('.js-search-box');
+      $searchInput = $searchBox.children('input');
+      $searchClear = $searchBox.children('.js-icon-clear');
+      search.getSearchInput = function() {
+        return $searchInput.get(0);
+      };
+      search.getVal = function() {
+        return $searchInput.val();
+      };
+      search.setVal = function(val) {
+        $searchInput.val(val);
+      };
+
+      $searchInput.on('focus', function() {
+        $(this).addClass('focus');
+      });
+      $searchInput.on('blur', function() {
+        $(this).removeClass('focus');
+      });
+      $searchInput.on('input', window.throttle(function() {
+        var val = $(this).val();
+        if (val === '' || typeof val !== 'string') {
+          search.clear && search.clear();
+        } else {
+          $searchBox.addClass('not-empty');
+          search.onInputNotEmpty && search.onInputNotEmpty(val);
+        }
+      }, 400));
+      $searchClear.on('click', function() {
+        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        search.clear && search.clear();
+      });
+    }
+  });
+})();
+</script><div class="search search--dark">
+  <div class="main">
+    <div class="search__header">Search</div>
+    <div class="search-bar">
+      <div class="search-box js-search-box">
+        <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
+        <input type="text" />
+        <div class="search-box__icon-clear js-icon-clear">
+          <a><i class="fas fa-times"></i></a>
+        </div>
+      </div>
+      <button class="button button--theme-dark button--pill search__cancel js-search-toggle">
+        Cancel</button>
+    </div>
+    <div class="search-result js-search-result"></div>
+  </div>
+</div>
+<script>var SOURCES = window.TEXT_VARIABLES.sources;
+var PAHTS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+  var search = (window.search || (window.search = {}));
+  var searchData = window.TEXT_SEARCH_DATA || {};
+
+  function memorize(f) {
+    var cache = {};
+    return function () {
+      var key = Array.prototype.join.call(arguments, ',');
+      if (key in cache) return cache[key];
+      else return cache[key] = f.apply(this, arguments);
+    };
+  }
+
+  /// search
+  function searchByQuery(query) {
+    var i, j, key, keys, cur, _title, result = {};
+    keys = Object.keys(searchData);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      for (j = 0; j < searchData[key].length; j++) {
+        cur = searchData[key][j], _title = cur.title;
+        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+          && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          if (result[key] === undefined) {
+            result[key] = [];
+          }
+          result[key].push(cur);
+        }
+      }
+    }
+    return result;
+  }
+
+  var renderHeader = memorize(function(header) {
+    return $('<p class="search-result__header">' + header + '</p>');
+  });
+
+  var renderItem = function(index, title, url) {
+    return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
+  };
+
+  function render(data) {
+    if (!data) { return null; }
+    var $root = $('<ul></ul>'), i, j, key, keys, cur, itemIndex = 0;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      $root.append(renderHeader(key));
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        $root.append(renderItem(itemIndex++, cur.title, cur.url));
+      }
+    }
+    return $root;
+  }
+
+  // search box
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+
+  function clear() {
+    $result.html(null);
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+  }
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
+
+  search.clear = clear;
+  search.onInputNotEmpty = onInputNotEmpty;
+
+  function updateResultItems() {
+    lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
+    activeIndex >= 0 && $resultItems.eq(activeIndex).addClass('active');
+  }
+
+  function moveActiveIndex(direction) {
+    var itemsCount = $resultItems ? $resultItems.length : 0;
+    if (itemsCount > 1) {
+      lastActiveIndex = activeIndex;
+      if (direction === 'up') {
+        activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
+      } else if (direction === 'down') {
+        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+      }
+      updateResultItems();
+    }
+  }
+
+  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
+  $(window).on('keyup', function(e) {
+    var modalVisible = search.getModalVisible && search.getModalVisible();
+    if (modalVisible) {
+      if (e.which === 38) {
+        modalVisible && moveActiveIndex('up');
+      } else if (e.which === 40) {
+        modalVisible && moveActiveIndex('down');
+      } else if (e.which === 13) {
+        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    }
+  });
+
+  $result.on('mouseover', '.search-result__item > a', function() {
+    var itemIndex = $(this).parent().data('index');
+    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+  });
+});
+</script>
+</div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    toc = $tocRoot.toc({
+      selectors: TOC_SELECTOR,
+      container: $articleContent,
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    affix = $pageAside.affix({
+      offsetBottom: $pageFooter.outerHeight(),
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      scroll: hasSidebar ? $('.js-page-main').children() : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+    window.pageAsideAffix = affix;
+  });
+})();
+</script><script>
+  window.Lazyload.js(['https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js', 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js'], function() {
+    var $canvas = null, $this = null, _ctx = null, _text = '';
+    $('.language-chart').each(function(){
+      $this = $(this);
+      $canvas = $('<canvas></canvas>');
+      _text = $this.text();
+      $this.text('').append($canvas);
+      _ctx = $canvas.get(0).getContext('2d');
+      (_ctx && _text) && (new Chart(_ctx, JSON.parse(_text)) && $this.attr('data-processed', true));
+    });
+  });
+</script>
+<script type="text/x-mathjax-config">
+	var _config = { tex2jax: {
+		inlineMath: [['$','$'], ['\\(','\\)']]
+	}};_config.TeX = { equationNumbers: { autoNumber: "all" } };MathJax.Hub.Config(_config);
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script>
+  window.Lazyload.js('https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js', function() {
+    mermaid.initialize({
+      startOnLoad: true
+    });
+    mermaid.init(undefined, '.language-mermaid');
+  });
+</script>
+
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>
+
